@@ -1,0 +1,900 @@
+{
+  "f6e599fe4bd2211f5798a2638ccaf4d10773c81677107121d6913a40f95047ff": {
+    "domain": "handoff-web/next.config.ts (part 1)",
+    "moduleRole": "Next.js framework configuration file defining build settings and environment setups for the web application.",
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "bc43f146851b44d2df7dbfe05aaea760894ea9daa0d6178be98d32211c959293": {
+    "domain": "handoff-web/next-env.d.ts (part 1)",
+    "moduleRole": "Provides Next.js TypeScript type declarations and environment references for the web application.",
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "44a535350259cb3a07b0c2dc40c2ee0facbcb77e8caaaf22b981e0c52e4201c9": {
+    "domain": "handoff-web/middleware.ts (part 1)",
+    "moduleRole": "Handles request interception, access control, and routing for the handoff web application.",
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "MiddlewareHandler",
+        "purpose": "Intercepts and processes incoming HTTP requests prior to reaching routes or pages.",
+        "exportedSymbols": [
+          "middleware"
+        ],
+        "sourceFile": "handoff-web/middleware.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "61efaa2889614ac0959d1bc78b0682eaee23ce907d1af2ff4e01cf2f66fd0473": {
+    "domain": "handoff-web/app (part 1)",
+    "moduleRole": "Next.js application frontend components, authentication pages, and API routes for registration, verification, and password reset workflows.",
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Processes new user account registration",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends verification code or email to the user",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Handles password reset authorization and request processing",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "RootLayout",
+        "purpose": "Defines the root HTML and layout wrapper for the Next.js application",
+        "exportedSymbols": [
+          "RootLayout"
+        ],
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "moduleName": "Providers",
+        "purpose": "Provides React context providers for application-wide state and authentication context",
+        "exportedSymbols": [
+          "Providers"
+        ],
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "moduleName": "ResetPasswordPage",
+        "purpose": "Renders the password reset view and component logic",
+        "exportedSymbols": [
+          "ResetPasswordContent",
+          "ResetPasswordPage"
+        ],
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      },
+      {
+        "moduleName": "VerifyPage",
+        "purpose": "Renders the account verification view and handles token verification logic",
+        "exportedSymbols": [
+          "VerifyContent",
+          "VerifyPage"
+        ],
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "d85c489d6a0b688ab9eb50948ea6094d228d08211585a38aa9a36bb7f7990e47": {
+    "domain": "handoff-web/app (part 2)",
+    "moduleRole": "Provides Next.js API route handlers for user password reset and account verification functionality.",
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/reset-password",
+        "description": "Handles user password reset requests",
+        "sourceFile": "handoff-web/app/api/reset-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/verify",
+        "description": "Handles account or verification token confirmation",
+        "sourceFile": "handoff-web/app/api/verify/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "a8f9fb486022feee4460c35a719e6ea6537952cd2f73107f35894c9f9083b271": {
+    "domain": "handoff-cli/bin (part 1)",
+    "moduleRole": "Serves as the main CLI execution entry point responsible for initializing CLI commands and validating configurations or input arguments.",
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "CLI Entry Point",
+        "purpose": "Manages CLI execution flow, entry command invocation, and argument validation.",
+        "exportedSymbols": [
+          "main",
+          "validate"
+        ],
+        "sourceFile": "handoff-cli/bin/index.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "dffa8b843d8356a8d4811218e3fc732162ff9b6ac67d4159d4c76b4d938b4b19": {
+    "domain": "handoff-cli/src (part 1)",
+    "moduleRole": "Core functionality for handoff CLI including AST parsing, AI summarization, caching, git history parsing, HTML report generation, secret sanitization, and verification.",
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "AI Summarizer",
+        "purpose": "Partitions code into chunks and utilizes AI mapping/reducing to generate comprehensive handoff reports",
+        "exportedSymbols": [
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/ai.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Manages caching of file contents and analysis results using hash comparisons",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "handoff-cli/src/core/cache.ts"
+      },
+      {
+        "moduleName": "Git Parser",
+        "purpose": "Parses git history and commits to supply context for code reports",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "handoff-cli/src/core/git.ts"
+      },
+      {
+        "moduleName": "HTML Report Generator",
+        "purpose": "Renders handoff analysis summaries into HTML format",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/html.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Detects project ecosystem, generates directory trees, and parses source files using AST analysis",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "handoff-cli/src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Calculates content entropy, identifies secrets, and redacts sensitive data prior to export/AI processing",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "handoff-cli/src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "Report Verifier",
+        "purpose": "Validates generated handoff reports for completeness and accuracy",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "2ca9f97de2733c9e2df4f0f7905527a192ac8527c34cc3f6db6a17a4d20700bf": {
+    "domain": "handoff-web/app (part 1)",
+    "moduleRole": "Provides Next.js layout, client-side pages for authentication flow (login, register, forgot/reset password, dashboard, verification), app-wide providers, and initial API route handlers.",
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Handles forgot password requests and authorization checks",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Handles new user registration",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends verification code or email notification",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "RootLayout",
+        "purpose": "Root layout wrapper for the Next.js application",
+        "exportedSymbols": [
+          "RootLayout"
+        ],
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "moduleName": "Providers",
+        "purpose": "Application-wide state and context providers component",
+        "exportedSymbols": [
+          "Providers"
+        ],
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "moduleName": "Home",
+        "purpose": "Landing/home page component",
+        "exportedSymbols": [
+          "Home"
+        ],
+        "sourceFile": "handoff-web/app/page.tsx"
+      },
+      {
+        "moduleName": "DashboardPage",
+        "purpose": "User dashboard page UI component",
+        "exportedSymbols": [
+          "DashboardPage"
+        ],
+        "sourceFile": "handoff-web/app/dash/page.tsx"
+      },
+      {
+        "moduleName": "ForgotPasswordPage",
+        "purpose": "Forgot password UI page component",
+        "exportedSymbols": [
+          "ForgotPasswordPage"
+        ],
+        "sourceFile": "handoff-web/app/forgot-password/page.tsx"
+      },
+      {
+        "moduleName": "LoginPage",
+        "purpose": "User login UI page component",
+        "exportedSymbols": [
+          "LoginPage"
+        ],
+        "sourceFile": "handoff-web/app/login/page.tsx"
+      },
+      {
+        "moduleName": "RegisterPage",
+        "purpose": "User registration UI page component",
+        "exportedSymbols": [
+          "RegisterPage"
+        ],
+        "sourceFile": "handoff-web/app/register/page.tsx"
+      },
+      {
+        "moduleName": "VerifyPage",
+        "purpose": "Account verification UI page component and content handler",
+        "exportedSymbols": [
+          "VerifyContent",
+          "VerifyPage"
+        ],
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      },
+      {
+        "moduleName": "ResetPasswordPage",
+        "purpose": "Password reset form UI component",
+        "exportedSymbols": [
+          "ResetPasswordContent",
+          "ResetPasswordPage"
+        ],
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "52ea56ecc590a2b8f73b029de09185e507f8c24edb0a0af23eb147ccee735dbd": {
+    "domain": "handoff-web/app (part 1)",
+    "moduleRole": "Provides application layout, global providers, frontend route pages (login, register, password reset, dashboard, verification), and auth API endpoints.",
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Handles user registration requests",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/verify",
+        "description": "Handles user account verification requests",
+        "sourceFile": "handoff-web/app/api/verify/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Handles authorization logic for password reset requests",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "RootLayout",
+        "purpose": "Defines the root layout shell for the Next.js application",
+        "exportedSymbols": [
+          "RootLayout"
+        ],
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "moduleName": "Providers",
+        "purpose": "Wraps application context and state providers",
+        "exportedSymbols": [
+          "Providers"
+        ],
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "moduleName": "ResetPasswordPage",
+        "purpose": "Renders password reset components and state container",
+        "exportedSymbols": [
+          "ResetPasswordContent",
+          "ResetPasswordPage"
+        ],
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      },
+      {
+        "moduleName": "VerifyPage",
+        "purpose": "Renders email/account verification components and UI logic",
+        "exportedSymbols": [
+          "VerifyContent",
+          "VerifyPage"
+        ],
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "6dae8a77c8b450c495f3798f794593f10c488a3d221b4bbf1086f77f1de73f6f": {
+    "domain": "handoff-web/app (part 2)",
+    "moduleRole": "Handles API endpoints for user authentication actions, including password reset and resending verification emails.",
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/reset-password",
+        "description": "Processes password reset requests",
+        "sourceFile": "handoff-web/app/api/reset-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends authentication or verification emails",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "5bde0692850f8299c539bafe48b779e47066bfb3a99932b3a190128884cda71f": {
+    "domain": "handoff-cli/src (part 1)",
+    "moduleRole": "Core engine modules for processing repository metadata, including AST parsing, AI-based chunking/summarization, secret sanitization, git history analysis, caching, verification, and report generation.",
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "AIReporter",
+        "purpose": "Partitions code into chunks, maps and reduces summaries, and generates handoff reports using AI",
+        "exportedSymbols": [
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/ai.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Manages caching and hashing of processed content to prevent redundant operations",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "handoff-cli/src/core/cache.ts"
+      },
+      {
+        "moduleName": "GitParser",
+        "purpose": "Parses and extracts commit logs and git history details",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "handoff-cli/src/core/git.ts"
+      },
+      {
+        "moduleName": "HtmlGenerator",
+        "purpose": "Renders generated handoff analysis reports into HTML format",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/html.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Parses files, detects project ecosystem, generates directory trees, and extracts AST metadata",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "handoff-cli/src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Calculates entropy, redacts secrets/sensitive data, and filters files based on ignore rules",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "handoff-cli/src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "Verifier",
+        "purpose": "Verifies the completeness and accuracy of generated handoff reports",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": [
+      "handoff-cli/src/types/index.d.ts"
+    ]
+  },
+  "8a03ce69caa143add718e4d62db1ae52ffc1ba1dd49e6c03bfcbf4b7b8d5ec46": {
+    "domain": "handoff-cli/bin (part 1)",
+    "moduleRole": "Primary CLI entrypoint for handoff-cli responsible for orchestrating main execution logic, validating inputs, and verifying monorepo context.",
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "HandoffCLIEntrypoint",
+        "purpose": "Handles execution initialization, monorepo context verification, and command validation for the CLI.",
+        "exportedSymbols": [
+          "checkMonorepoContext",
+          "main",
+          "validate"
+        ],
+        "sourceFile": "handoff-cli/bin/index.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "0b4694388ec3d69ca531ecb0bedfbdfa9d3d183a99c6964134db36466c1b97c5": {
+    "domain": "handoff-cli/src (part 1)",
+    "moduleRole": "Core functionality for handoff CLI including AST parsing, secret sanitization, caching, AI analysis/generation, git history processing, and report export (HTML/verification).",
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "AI Module",
+        "purpose": "Handles partitioning source chunks, mapping/reducing summaries via AI, sanitizing Mermaid labels, and generating the handoff report.",
+        "exportedSymbols": [
+          "sanitizeMermaidLabels",
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/ai.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Manages local caching of parsed content using content hashing.",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "handoff-cli/src/core/cache.ts"
+      },
+      {
+        "moduleName": "Git Module",
+        "purpose": "Parses repository git commit and file history for context gathering.",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "handoff-cli/src/core/git.ts"
+      },
+      {
+        "moduleName": "HTML Module",
+        "purpose": "Generates standalone HTML reports from processed handoff data.",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/html.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Detects project ecosystem, builds directory trees, and parses source files using tree-sitter or AST parsers.",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "handoff-cli/src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Calculates entropy, redacts high-entropy secrets, and checks file ignore rules prior to processing.",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "handoff-cli/src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "Verifier Module",
+        "purpose": "Verifies completeness and validity of generated handoff reports.",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "eff6d4f81e552840285ce2ee3bc375cb1abd1cedfc6457c2750ec8271865778b": {
+    "domain": "handoff-web/app (part 2)",
+    "moduleRole": "Handles backend authentication routes including account verification and password reset requests.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/verify",
+        "description": "Verifies account credentials or verification tokens.",
+        "sourceFile": "handoff-web/app/api/verify/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Authorizes and processes forgot-password requests.",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "ec17e2f4792026348b2beb2a49632acb8ae1ef5d16788d3f66911883bfdcd268": {
+    "domain": "handoff-web/app (part 1)",
+    "moduleRole": "Handles main application layout, entry pages, user authentication UI (login, register, forgot/reset password, email verification), dashboard view, and authentication-related backend API routes.",
+    "identifiedUIComponents": [
+      {
+        "name": "RootLayout",
+        "purpose": "Root application layout wrapper",
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "name": "Home",
+        "purpose": "Landing page component",
+        "sourceFile": "handoff-web/app/page.tsx"
+      },
+      {
+        "name": "Providers",
+        "purpose": "Global context and state providers wrapper",
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "name": "DashboardPage",
+        "purpose": "Main user dashboard UI view",
+        "sourceFile": "handoff-web/app/dash/page.tsx"
+      },
+      {
+        "name": "ForgotPasswordPage",
+        "purpose": "UI page for requesting a password reset link",
+        "sourceFile": "handoff-web/app/forgot-password/page.tsx"
+      },
+      {
+        "name": "LoginPage",
+        "purpose": "User login interface",
+        "sourceFile": "handoff-web/app/login/page.tsx"
+      },
+      {
+        "name": "RegisterPage",
+        "purpose": "User registration/sign-up interface",
+        "sourceFile": "handoff-web/app/register/page.tsx"
+      },
+      {
+        "name": "ResetPasswordPage",
+        "purpose": "UI page for resetting user password with verification token",
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      },
+      {
+        "name": "VerifyPage",
+        "purpose": "UI page for verifying email addresses/accounts",
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      }
+    ],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Handles user registration requests",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends verification or authentication emails",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/reset-password",
+        "description": "Processes password reset requests",
+        "sourceFile": "handoff-web/app/api/reset-password/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "dbb122aaad9cc6de4b7daef099a4f5ac3d3a2e5db0ff517a62ae2e9a3f63cf27": {
+    "domain": "handoff-cli/src (part 1)",
+    "moduleRole": "Core static code analysis engine providing AST parsing, secret sanitization, AI-driven report generation, caching, git history analysis, HTML report generation, and report verification.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "ai",
+        "purpose": "Handles AI chunk partitioning, summary map-reduction, Mermaid diagram sanitization, and handoff report generation.",
+        "exportedSymbols": [
+          "sanitizeMermaidLabels",
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/ai.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Manages caching of analysis results using content hashing to optimize re-runs.",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "handoff-cli/src/core/cache.ts"
+      },
+      {
+        "moduleName": "git",
+        "purpose": "Parses repository Git history for contribution and change analysis.",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "handoff-cli/src/core/git.ts"
+      },
+      {
+        "moduleName": "html",
+        "purpose": "Generates formatted HTML reports from analysis summaries.",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/html.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Detects project ecosystems, generates file directory trees, and extracts AST metadata from code files.",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "handoff-cli/src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Calculates content entropy to identify and redact sensitive secrets, and filters out ignored files.",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "handoff-cli/src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "verifier",
+        "purpose": "Verifies the accuracy and integrity of generated handoff reports.",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": [
+      "handoff-cli/src/types/index.d.ts"
+    ]
+  },
+  "4b442fa3f989efd43d708e604529cd9cc1d6c71f7ab4eb31fde8555649b25b22": {
+    "domain": "handoff-web/app (part 2)",
+    "moduleRole": "Handles API routes for account verification and password reset functionality.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/verify",
+        "description": "Processes account/email verification requests",
+        "sourceFile": "handoff-web/app/api/verify/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/reset-password",
+        "description": "Processes user password reset requests",
+        "sourceFile": "handoff-web/app/api/reset-password/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "7f42f812b456f9248683999f6dc38048b7ce6c7c44755e17fa4b421ec8ec24b0": {
+    "domain": "handoff-web/app (part 1)",
+    "moduleRole": "Handles core application pages, authentication UI (login, register, verification, password reset), main dashboard, root layout wrapper, and authentication API routes.",
+    "identifiedUIComponents": [
+      {
+        "name": "RootLayout",
+        "purpose": "Root layout component wrapping the application with essential HTML structure and context providers",
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "name": "Home",
+        "purpose": "Landing page view for the application",
+        "sourceFile": "handoff-web/app/page.tsx"
+      },
+      {
+        "name": "Providers",
+        "purpose": "React context providers wrapper for client-side context management",
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "name": "ForgotPasswordPage",
+        "purpose": "Renders the password recovery request form UI",
+        "sourceFile": "handoff-web/app/forgot-password/page.tsx"
+      },
+      {
+        "name": "RegisterPage",
+        "purpose": "Renders the user registration/signup form UI",
+        "sourceFile": "handoff-web/app/register/page.tsx"
+      },
+      {
+        "name": "ResetPasswordPage",
+        "purpose": "Renders the password reset confirmation and input form UI",
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      },
+      {
+        "name": "LoginPage",
+        "purpose": "Renders the user login form UI",
+        "sourceFile": "handoff-web/app/login/page.tsx"
+      },
+      {
+        "name": "DashboardPage",
+        "purpose": "Renders the main dashboard interface for authenticated users",
+        "sourceFile": "handoff-web/app/dash/page.tsx"
+      },
+      {
+        "name": "VerifyPage",
+        "purpose": "Renders account/email verification status interface",
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      }
+    ],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Handles forgot password requests and sends recovery links",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Handles new user registration and account creation",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends verification or authentication emails",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "1ad4ce31fa385e482346833ccecd31de4ca8324d412c1616468ff2dfc685fe91": {
+    "domain": "handoff-cli/src (part 1)",
+    "moduleRole": "Core backend processing engine for Handoff CLI, covering AI-assisted report generation, AST code parsing, caching, secret sanitization, git history processing, and HTML export.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "ai",
+        "purpose": "Manages AI-driven summarization, chunking, Mermaid diagram label sanitization, and handoff report generation",
+        "exportedSymbols": [
+          "sanitizeMermaidLabels",
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/ai.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Provides content hashing and disk/memory cache retrieval and persistence for project parsing results",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "handoff-cli/src/core/cache.ts"
+      },
+      {
+        "moduleName": "git",
+        "purpose": "Parses and extracts commit history details from repository git logs",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "handoff-cli/src/core/git.ts"
+      },
+      {
+        "moduleName": "html",
+        "purpose": "Generates standalone HTML report files based on handoff report data",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/html.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Analyzes project source code files, extracts AST data, detects ecosystem settings, and builds directory tree structures",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "handoff-cli/src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Detects high-entropy strings, redacts sensitive secrets, and filters ignored files before AI processing",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "handoff-cli/src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "verifier",
+        "purpose": "Verifies the completeness and consistency of generated handoff reports",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  }
+}

@@ -1,0 +1,304 @@
+{
+  "projectType": "monorepo",
+  "executiveView": {
+    "title": "Automated AST Analysis Platform & Web Portal",
+    "summary": "An enterprise monorepo featuring an automated AST-driven code analysis CLI tool (handoff-cli) and a fullstack Next.js web application (handoff-web). The CLI uses Tree-sitter parsers across 10+ languages to extract symbols, sanitizes secrets using entropy analysis, inspects Git history, and synthesizes technical handoff documentation using Google Generative AI. The web platform provides authentication, user onboarding, password recovery workflows, and a modern dashboard UI.",
+    "businessValue": "Accelerates developer onboarding by up to 80% through automated repository reverse-engineering and structural documentation generation. Mitigates compliance risks and data leaks by automatically scanning and redacting high-entropy secrets prior to AI model ingestion.",
+    "featuresDelivered": [
+      "Multi-language AST symbol extraction across TypeScript, JavaScript, Python, Go, Java, C++, C#, Ruby, Rust, and PHP powered by Tree-sitter",
+      "High-entropy secret detection and automated source code redaction engine",
+      "Git metadata, branch commit history, and diff summary parser using simple-git",
+      "Map-reduce domain chunking and report synthesis using Google Generative AI",
+      "Content hashing cache engine for incremental parsing performance",
+      "Standalone interactive HTML report generation with embedded Mermaid.js architecture diagrams",
+      "Fullstack web application built with Next.js App Router, Tailwind CSS v4, and React 19",
+      "Complete user authentication lifecycle including registration, verification, login, password recovery, and rate-limited API routes"
+    ],
+    "userFlows": [
+      {
+        "flowName": "CLI Report Generation Flow",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "action": "Operator executes `handoff` CLI command in target repository."
+          },
+          {
+            "stepNumber": 2,
+            "action": "ASTExtractor scans repository files, builds directory tree, and parses AST symbols."
+          },
+          {
+            "stepNumber": 3,
+            "action": "Sanitizer identifies and redacts high-entropy secrets and sensitive strings."
+          },
+          {
+            "stepNumber": 4,
+            "action": "Map-reduce engine chunks sanitized code and requests AI summary from Google Generative AI."
+          },
+          {
+            "stepNumber": 5,
+            "action": "Html generator outputs `handoff-report.html` and `handoff-report.json`."
+          }
+        ]
+      },
+      {
+        "flowName": "User Registration & Identity Verification Flow",
+        "steps": [
+          {
+            "stepNumber": 1,
+            "action": "User accesses `/register` page in handoff-web UI."
+          },
+          {
+            "stepNumber": 2,
+            "action": "User submits credentials which post to `/api/register` endpoint."
+          },
+          {
+            "stepNumber": 3,
+            "action": "System creates user record and dispatches verification email via `/api/resend`."
+          },
+          {
+            "stepNumber": 4,
+            "action": "User clicks link redirecting to `/verify` which posts token to `/api/verify`."
+          },
+          {
+            "stepNumber": 5,
+            "action": "User gets redirected to `/dash` dashboard upon successful token validation."
+          }
+        ]
+      }
+    ]
+  },
+  "developerRunbook": {
+    "architectureOverview": "This repository is structured as an enterprise monorepo containing two main projects: `handoff-cli` (an AST analysis engine) and `handoff-web` (a Next.js 16 web portal). The CLI module leverages native Tree-sitter bindings for language parsing, `simple-git` for Git commit extraction, and `@google/generative-ai` for map-reduce document synthesis. The Web application utilizes Next.js App Router with React 19, Tailwind CSS v4, `@supabase/ssr` for authentication state management, and `@upstash/ratelimit` for API rate-limiting enforcement.",
+    "mermaidDiagram": "graph TD\n  User[\"Operator / Developer\"]\n  CLI[\"handoff-cli/bin/index.ts\"]\n  Parser[\"handoff-cli/src/core/parser.ts (ASTExtractor)\"]\n  Sanitizer[\"handoff-cli/src/core/sanitizer.ts (Sanitizer)\"]\n  Git[\"handoff-cli/src/core/git.ts\"]\n  AI[\"handoff-cli/src/core/ai.ts (Google Gemini Engine)\"]\n  ReportGen[\"handoff-cli/src/core/html.ts\"]\n  HTMLReport[\"handoff-report.html\"]\n  WebUser[\"Web End-User\"]\n  WebUI[\"handoff-web/app/layout.tsx\"]\n  AuthAPI[\"handoff-web/app/api/register/route.ts\"]\n  VerifyAPI[\"handoff-web/app/api/verify/route.ts\"]\n  Supabase[\"Supabase Auth & Database\"]\n  Upstash[\"Upstash Redis Rate Limiter\"]\n\n  User -->|\"Executes CLI\"| CLI\n  CLI --> Parser\n  CLI --> Sanitizer\n  CLI --> Git\n  Parser --> AI\n  Sanitizer --> AI\n  AI --> ReportGen\n  ReportGen --> HTMLReport\n\n  WebUser -->|\"Browser Request\"| WebUI\n  WebUI --> AuthAPI\n  WebUI --> VerifyAPI\n  AuthAPI --> Upstash\n  AuthAPI --> Supabase\n  VerifyAPI --> Supabase",
+    "uiComponents": [
+      {
+        "name": "RootLayout",
+        "purpose": "Root layout wrapper defining HTML shell, font imports, global CSS, and theme providers.",
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "name": "Home",
+        "purpose": "Public landing page presenting platform value proposition and portal navigation.",
+        "sourceFile": "handoff-web/app/page.tsx"
+      },
+      {
+        "name": "Providers",
+        "purpose": "Client-side context provider manager for application state and authentication sessions.",
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "name": "LoginPage",
+        "purpose": "User authentication page rendering login form and handling sign-in credentials.",
+        "sourceFile": "handoff-web/app/login/page.tsx"
+      },
+      {
+        "name": "RegisterPage",
+        "purpose": "User onboarding view for account registration.",
+        "sourceFile": "handoff-web/app/register/page.tsx"
+      },
+      {
+        "name": "ForgotPasswordPage",
+        "purpose": "Form page allowing users to request password recovery email links.",
+        "sourceFile": "handoff-web/app/forgot-password/page.tsx"
+      },
+      {
+        "name": "ResetPasswordPage",
+        "purpose": "Form page allowing users to submit new password credentials with secure tokens.",
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      },
+      {
+        "name": "VerifyPage",
+        "purpose": "Account email verification confirmation page.",
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      },
+      {
+        "name": "DashboardPage",
+        "purpose": "Authenticated user administrative dashboard view.",
+        "sourceFile": "handoff-web/app/dash/page.tsx"
+      }
+    ],
+    "httpEndpoints": [
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Registers new user credentials and initiates identity verification workflow",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/verify",
+        "description": "Validates email verification tokens for new user accounts",
+        "sourceFile": "handoff-web/app/api/verify/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Triggers password recovery process and dispatches reset tokens",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/reset-password",
+        "description": "Applies new password updates following token validation",
+        "sourceFile": "handoff-web/app/api/reset-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends authentication or verification emails to registered users",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      }
+    ],
+    "coreModules": [
+      {
+        "moduleName": "HandoffCLIEntrypoint",
+        "purpose": "Main CLI execution engine managing input parsing, monorepo context checks, and pipeline control.",
+        "exportedSymbols": [
+          "main",
+          "checkMonorepoContext",
+          "validate"
+        ],
+        "sourceFile": "handoff-cli/bin/index.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Tree-sitter AST parser that analyzes multi-language source code files and builds abstract syntax structures.",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "handoff-cli/src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Entropy detection engine that redacts sensitive keys and filters excluded file paths prior to LLM processing.",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "handoff-cli/src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "ai",
+        "purpose": "Map-reduce summarization pipeline communicating with Google Generative AI SDK.",
+        "exportedSymbols": [
+          "generateHandoffReport",
+          "mapChunk",
+          "reduceSummaries",
+          "partitionIntoChunks",
+          "sanitizeMermaidLabels"
+        ],
+        "sourceFile": "handoff-cli/src/core/ai.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Local content hashing and disk/memory caching service for incremental code analysis.",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "handoff-cli/src/core/cache.ts"
+      },
+      {
+        "moduleName": "git",
+        "purpose": "Git metadata processing utility extracting commit history, branch info, and repository diffs.",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "handoff-cli/src/core/git.ts"
+      },
+      {
+        "moduleName": "html",
+        "purpose": "Renders standalone, interactive HTML reports with embedded Mermaid.js diagrams.",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/html.ts"
+      },
+      {
+        "moduleName": "verifier",
+        "purpose": "Structural report verification engine ensuring compliance against JSON schemas.",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/verifier.ts"
+      },
+      {
+        "moduleName": "MiddlewareHandler",
+        "purpose": "Next.js HTTP middleware enforcing route protection and access control.",
+        "exportedSymbols": [
+          "middleware"
+        ],
+        "sourceFile": "handoff-web/middleware.ts"
+      }
+    ],
+    "databaseSchema": {
+      "ormOrEngine": "Supabase (PostgreSQL) & Upstash Redis",
+      "modelsOrTables": [
+        {
+          "name": "auth.users",
+          "description": "Managed by Supabase Auth; stores user IDs, hashed credentials, email verification statuses, and timestamps."
+        },
+        {
+          "name": "upstash_rate_limits",
+          "description": "Key-value cache records managed by Upstash Redis to track request frequencies and prevent API abuse."
+        }
+      ],
+      "summary": "User authentication and persistent user state are backed by Supabase Auth and PostgreSQL. Rate limiting across API routes (`/api/*`) is enforced via Upstash Redis REST integration."
+    },
+    "environmentVariables": [
+      {
+        "name": "GEMINI_API_KEY",
+        "purpose": "API token for Google Generative AI used by handoff-cli for map-reduce report synthesis",
+        "required": true,
+        "defaultValue": ""
+      },
+      {
+        "name": "NEXT_PUBLIC_SUPABASE_URL",
+        "purpose": "Public Supabase project URL for authentication and API communication in handoff-web",
+        "required": true,
+        "defaultValue": ""
+      },
+      {
+        "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+        "purpose": "Public Supabase anonymous key for client-side API calls",
+        "required": true,
+        "defaultValue": ""
+      },
+      {
+        "name": "UPSTASH_REDIS_REST_URL",
+        "purpose": "Upstash Redis REST endpoint URL for serverless rate limiting",
+        "required": false,
+        "defaultValue": ""
+      },
+      {
+        "name": "UPSTASH_REDIS_REST_TOKEN",
+        "purpose": "Upstash Redis REST API authentication token",
+        "required": false,
+        "defaultValue": ""
+      },
+      {
+        "name": "NEXTAUTH_SECRET",
+        "purpose": "Secret key used for signing authentication session tokens",
+        "required": false,
+        "defaultValue": ""
+      }
+    ],
+    "infrastructureAndServices": [
+      "Google Generative AI (@google/generative-ai)",
+      "Tree-sitter Language Parsers (C#, C++, Go, Java, JS, PHP, Python, Ruby, Rust, TS)",
+      "Supabase SSR & JS Client (@supabase/ssr, @supabase/supabase-js)",
+      "Upstash Redis Rate Limiting (@upstash/ratelimit, @upstash/redis)",
+      "Next.js App Router & React 19 Engine",
+      "Tailwind CSS v4 Engine",
+      "Simple-Git Repository Inspector",
+      "Mermaid.js Diagram Rendering Engine"
+    ],
+    "setupInstructions": [
+      "Clone repository and ensure Node.js (>=20.x) and pnpm/npm are installed.",
+      "Install dependencies at repository root: `npm install`.",
+      "Navigate to `handoff-cli/` and copy sample env: `cp .env.example .env` (set `GEMINI_API_KEY`).",
+      "Build and test handoff CLI: `cd handoff-cli && npm run build && npm start`.",
+      "Navigate to `handoff-web/` and configure environment variables in `.env.local` for Supabase and Upstash.",
+      "Run local web development server: `cd handoff-web && npm run dev`.",
+      "Open `http://localhost:3000` to access the web application interface."
+    ]
+  }
+}

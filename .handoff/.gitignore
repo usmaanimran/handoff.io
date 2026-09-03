@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+handoff-cli/node_modules/
+handoff-web/node_modules/
+
+# Environment Variables (CRITICAL: Do not leak your keys)
+.env
+.env.local
+.env.*.local
+
+# Handoff Local Test Artifacts
+.handoff/
+handoff-manifest.json
+handoff-report.json
+handoff-report.html
+
+# Build Outputs
+dist/
+handoff-web/.next/
+handoff-web/out/
+
+# OS Files
+.DS_Store
+Thumbs.db
