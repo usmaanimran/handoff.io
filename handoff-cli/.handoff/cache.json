@@ -1,0 +1,483 @@
+{
+  "9bb32a044436eb6fb70deb2f05df3009a9b5a436c6fd15815e5a85872b1cd5c5": {
+    "domain": "src/types (part 1)",
+    "moduleRole": "Defines global or shared TypeScript type declarations and interfaces for the application.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "Global Type Declarations",
+        "purpose": "Provides global ambient type definitions and interface declarations across the project",
+        "exportedSymbols": [],
+        "sourceFile": "src/types/index.d.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "48793bf6d5b9234a0ccd0b3599882c5828830ee6fcd50077632f16cc21c11652": {
+    "domain": "src/core (part 1)",
+    "moduleRole": "Core engine utilities handling AST parsing, AI-based handoff report generation, caching, secret sanitization, git history processing, API key management, HTML rendering, and verification.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "ai",
+        "purpose": "Manages AI processing workflows including code partitioning, chunk mapping, summary reduction, and handoff report generation.",
+        "exportedSymbols": [
+          "sanitizeMermaidLabels",
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "src/core/ai.ts"
+      },
+      {
+        "moduleName": "auth",
+        "purpose": "Manages persistent storage and retrieval of authentication or API keys.",
+        "exportedSymbols": [
+          "getSavedKey",
+          "saveKey",
+          "clearKey"
+        ],
+        "sourceFile": "src/core/auth.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Provides content hashing and storage mechanisms for caching analysis outputs.",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "src/core/cache.ts"
+      },
+      {
+        "moduleName": "git",
+        "purpose": "Parses and extracts commit history metadata from Git repositories.",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "src/core/git.ts"
+      },
+      {
+        "moduleName": "html",
+        "purpose": "Generates HTML reports from processed analysis and handoff data.",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "src/core/html.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Detects project ecosystems, builds file tree structures, and extracts AST data from target source files.",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Calculates content entropy to identify and redact secrets or sensitive information and manages file ignore filters.",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "verifier",
+        "purpose": "Validates and verifies generated handoff reports for accuracy and structural completeness.",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "1ddb828db7c991fa216fd4046969734a2f97701919ebf12dca6ef6edcb7f1fd1": {
+    "domain": "bin/index.ts (part 1)",
+    "moduleRole": "CLI startup and execution module managing terminal branding, animated mascot rendering, boot sequences, and monorepo context validation.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "InkMascot",
+        "purpose": "Manages animated terminal mascot rendering, visual pulses, ink bursts, and frame updates.",
+        "exportedSymbols": [
+          "InkMascot",
+          "start",
+          "update",
+          "render",
+          "pulse",
+          "stop",
+          "inkBurst"
+        ],
+        "sourceFile": "bin/index.ts"
+      },
+      {
+        "moduleName": "CLIBootSequence",
+        "purpose": "Handles CLI banner rendering, boot logging sequences, monorepo environment checks, key prompts, validation, and main process execution.",
+        "exportedSymbols": [
+          "renderBigText",
+          "printBigSign",
+          "printBootLog",
+          "bootSequence",
+          "checkMonorepoContext",
+          "promptForKey",
+          "validate",
+          "main"
+        ],
+        "sourceFile": "bin/index.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "8250f5e25388e7e667fbec2a7b21db3204f7cd43f3258ddcfb17b4ad7121a970": {
+    "domain": "bin/index.ts (part 1)",
+    "moduleRole": "CLI entry point handling CLI initialization, mascot animation rendering, monorepo context verification, key prompts, and boot sequence execution.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "InkMascot",
+        "purpose": "Manages CLI mascot animation state, rendering, pulsing effects, and visual ink bursts.",
+        "exportedSymbols": [
+          "InkMascot",
+          "start",
+          "update",
+          "render",
+          "pulse",
+          "stop",
+          "inkBurst"
+        ],
+        "sourceFile": "bin/index.ts"
+      },
+      {
+        "moduleName": "CLIBootstrap",
+        "purpose": "Executes boot sequences, validates monorepo environment, renders signs, prompts for keys, and serves as the entry point execution flow for the CLI.",
+        "exportedSymbols": [
+          "renderBigText",
+          "printBigSign",
+          "printBootLog",
+          "bootSequence",
+          "checkMonorepoContext",
+          "promptForKey",
+          "validate",
+          "main"
+        ],
+        "sourceFile": "bin/index.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "6d25bfb459d2ab8dbc0b4cf3c9ac35bb0c4c810777ec59e3558fc31f5397050f": {
+    "domain": "src/core (part 1)",
+    "moduleRole": "Core backend logic and utility functions handling AI generation, authentication keys, AST parsing, cache management, Git history processing, secret sanitization, and report verification.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "ai",
+        "purpose": "Processes content chunking, map-reduce AI operations for summaries, mermaid diagram sanitization, and handoff report generation.",
+        "exportedSymbols": [
+          "sanitizeMermaidLabels",
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "src/core/ai.ts"
+      },
+      {
+        "moduleName": "auth",
+        "purpose": "Manages local persistence and retrieval of API access keys.",
+        "exportedSymbols": [
+          "getSavedKey",
+          "saveKey",
+          "clearKey"
+        ],
+        "sourceFile": "src/core/auth.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Provides content hashing and cache storage mechanisms for performance optimization.",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "src/core/cache.ts"
+      },
+      {
+        "moduleName": "git",
+        "purpose": "Parses and processes Git commit history for static analysis.",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "src/core/git.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Performs AST code parsing, ecosystem detection, and directory tree generation.",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Redacts sensitive secrets using entropy calculation and checks for ignored files.",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "verifier",
+        "purpose": "Validates and verifies generated handoff reports for accuracy and compliance.",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "8247c5e4573c42fa87ab4fb00c12dc6fbdb434dbe29b32990de49409054e6809": {
+    "domain": "bin/index.ts (part 1)",
+    "moduleRole": "CLI entry point and bootstrapper handling terminal banners, mascot animation, boot checks, monorepo context validation, and application startup.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "InkMascot",
+        "purpose": "Renders and manages terminal animation states for the mascot",
+        "exportedSymbols": [
+          "InkMascot"
+        ],
+        "sourceFile": "bin/index.ts"
+      },
+      {
+        "moduleName": "CLIBootstrapper",
+        "purpose": "Handles CLI startup sequence, monorepo context verification, key prompts/validation, and main lifecycle execution",
+        "exportedSymbols": [
+          "renderBigText",
+          "printBigSign",
+          "start",
+          "update",
+          "render",
+          "pulse",
+          "stop",
+          "inkBurst",
+          "printBootLog",
+          "bootSequence",
+          "checkMonorepoContext",
+          "promptForKey",
+          "validate",
+          "main"
+        ],
+        "sourceFile": "bin/index.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "b57ed4dd34cb5730fb4218125ac0915425ad7797f49f717a79efebef0b400a9c": {
+    "domain": "src/core (part 1)",
+    "moduleRole": "Core processing utilities and engines for AST code parsing, git history analysis, secret redaction, AI map-reduce summarization, caching, and authentication key management.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "AI Engine",
+        "purpose": "Handles partitioning, chunk mapping, summarization, Mermaid label sanitization, and handoff report generation using AI models.",
+        "exportedSymbols": [
+          "sanitizeMermaidLabels",
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "src/core/ai.ts"
+      },
+      {
+        "moduleName": "Auth Manager",
+        "purpose": "Manages saving, retrieving, and clearing local API keys.",
+        "exportedSymbols": [
+          "getSavedKey",
+          "saveKey",
+          "clearKey"
+        ],
+        "sourceFile": "src/core/auth.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Provides content hashing and key-value cache persistence for analysis results.",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "src/core/cache.ts"
+      },
+      {
+        "moduleName": "Git Analyzer",
+        "purpose": "Parses commit history and git log details.",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "src/core/git.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Detects ecosystems, generates directory trees, configures language settings, and extracts AST data from code files.",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Calculates entropy, identifies sensitive data/secrets, and redacts them prior to processing.",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "Report Verifier",
+        "purpose": "Validates the structure and consistency of generated handoff reports.",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "78f9246819d5d454184472b1704be6218f0569acbd5189165ce523fb51fc09a5": {
+    "domain": "bin/index.ts (part 1)",
+    "moduleRole": "CLI initialization script handling boot sequencing, terminal visual rendering/ascii art, mascot animations, monorepo context validation, and API key prompts.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "InkMascot",
+        "purpose": "Manages animated terminal mascot state, pulsing effects, and ink burst visual rendering.",
+        "exportedSymbols": [
+          "InkMascot"
+        ],
+        "sourceFile": "bin/index.ts"
+      },
+      {
+        "moduleName": "CLIBootstrap",
+        "purpose": "Orchestrates CLI startup sequence, terminal text rendering, monorepo environment check, and user interactive prompts for API keys.",
+        "exportedSymbols": [
+          "renderBigText",
+          "printBigSign",
+          "printBootLog",
+          "bootSequence",
+          "checkMonorepoContext",
+          "promptForKey",
+          "promptForGeminiKey",
+          "main"
+        ],
+        "sourceFile": "bin/index.ts"
+      }
+    ],
+    "identifiedEnvVars": [
+      {
+        "name": "GEMINI_API_KEY",
+        "purpose": "API key required for Gemini integration prompted and validated during setup.",
+        "required": false
+      }
+    ],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "c16f7dd54427d1e74736ecef621509d7c99f97f1a13c93a44ab4ef84dff37374": {
+    "domain": "src/core (part 1)",
+    "moduleRole": "Core engine utilities including AI processing, AST extraction, secret sanitization, authentication/config management, caching, git parsing, and report verification.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "ai",
+        "purpose": "Manages AI-driven file chunking, map-reduce summarization, Mermaid label sanitization, and handoff report generation.",
+        "exportedSymbols": [
+          "sanitizeMermaidLabels",
+          "partitionIntoChunks",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "src/core/ai.ts"
+      },
+      {
+        "moduleName": "auth",
+        "purpose": "Handles retrieval and storage of user configurations and API keys (such as Gemini API keys).",
+        "exportedSymbols": [
+          "getConfig",
+          "saveConfig",
+          "getSavedKey",
+          "saveKey",
+          "getGeminiKey",
+          "saveGeminiKey",
+          "clearKey"
+        ],
+        "sourceFile": "src/core/auth.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Provides content hashing and key-value cache persistence mechanisms.",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "src/core/cache.ts"
+      },
+      {
+        "moduleName": "git",
+        "purpose": "Parses repository git commit history.",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "src/core/git.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Detects software ecosystems, generates directory trees, and parses files into Abstract Syntax Trees.",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Calculates entropy, redacts sensitive secrets from code analysis, and checks ignore rules.",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "verifier",
+        "purpose": "Verifies the completeness and accuracy of generated handoff reports.",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  }
+}

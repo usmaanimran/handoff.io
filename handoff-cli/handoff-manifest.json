@@ -1,0 +1,370 @@
+{
+  "meta": {
+    "scannedAt": "2026-09-03T20:59:39.131Z",
+    "ecosystems": [
+      "Node/Web"
+    ],
+    "directoryTree": "├── bin\n│   ├── index.ts\n├── handoff-manifest.json\n├── package.json\n├── src\n│   ├── core\n│   │   ├── ai.ts\n│   │   ├── auth.ts\n│   │   ├── cache.ts\n│   │   ├── git.ts\n│   │   ├── parser.ts\n│   │   ├── sanitizer.ts\n│   │   ├── verifier.ts\n│   ├── types\n│   │   ├── index.d.ts\n├── tsconfig.json\n",
+    "totalFilesScanned": 12
+  },
+  "git": {
+    "branch": "master",
+    "latestCommit": {
+      "hash": "41c173ce70e8d6129c359369d2e0155d33b1b924",
+      "message": "Initial CLI engine build",
+      "author_name": "usmaanimran",
+      "date": "2026-08-20T21:08:40+05:30"
+    },
+    "recentCommits": [
+      {
+        "hash": "41c173c",
+        "message": "Initial CLI engine build",
+        "date": "2026-08-20T21:08:40+05:30"
+      }
+    ],
+    "diffSummary": {
+      "changedFiles": 1887,
+      "insertions": 1264301,
+      "deletions": 0
+    }
+  },
+  "architecture": [
+    {
+      "file": "handoff-manifest.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"meta\": {\n    \"scannedAt\": \"2026-09-03T20:58:19.578Z\",\n    \"ecosystems\": [\n      \"Node/Web\"\n    ],\n    \"directoryTree\": \"├── bin\\n│   ├── index.ts\\n├── package.json\\n├── src\\n│   ├── core\\n│   │   ├── ai.ts\\n│   │   ├── auth.ts\\n│   │   ├── cache.ts\\n│   │   ├── git.ts\\n│   │   ├── parser.ts\\n│   │   ├── sanitizer.ts\\n│   │   ├── verifier.ts\\n│   ├── types\\n│   │   ├── index.d.ts\\n├── tsconfig.json\\n\",\n    \"totalFilesScanned\": 11\n  },\n  \"git\": {\n    \"branch\": \"master\",\n    \"latestCommit\": {\n      \"hash\": \"41c173ce70e8d6129c359369d2e0155d33b1b924\",\n      \"message\": \"Initial CLI engine build\",\n      \"author_name\": \"usmaanimran\",\n      \"date\": \"2026-08-20T21:08:40+05:30\"\n    },\n    \"recentCommits\": [\n      {\n        \"hash\": \"41c173c\",\n        \"message\": \"Initial CLI engine build\",\n        \"date\": \"2026-08-20T21:08:40+05:30\"\n      }\n    ],\n    \"diffSummary\": {\n      \"changedFiles\": 1887,\n      \"insertions\": 1264301,\n      \"deletions\": 0\n    }\n  },\n  \"architecture\": [\n    {\n      \"file\": \"package.json\",\n      \"language\": \"unknown\",\n      \"isRaw\": true,\n      \"rawContent\": \"{\\n  \\\"name\\\": \\\"handoff-cli\\\",\\n  \\\"version\\\": \\\"1.0.0\\\",\\n  \\\"type\\\": \\\"module\\\",\\n  \\\"bin\\\": {\\n    \\\"handoff\\\": \\\"./bin/index.js\\\"\\n  },\\n  \\\"scripts\\\": {\\n    \\\"start\\\": \\\"tsx bin/index.ts\\\",\\n    \\\"build\\\": \\\"tsc\\\"\\n  },\\n  \\\"dependencies\\\": {\\n    \\\"@clack/prompts\\\": \\\"^1.7.0\\\",\\n    \\\"@google/generative-ai\\\": \\\"^0.24.1\\\",\\n    \\\"boxen\\\": \\\"^8.0.1\\\",\\n    \\\"chalk\\\": \\\"^6.0.0\\\",\\n    \\\"commander\\\": \\\"^",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "handoff-manifest.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "package.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"name\": \"handoff-cli\",\n  \"version\": \"1.0.0\",\n  \"type\": \"module\",\n  \"bin\": {\n    \"handoff\": \"./bin/index.js\"\n  },\n  \"scripts\": {\n    \"start\": \"tsx bin/index.ts\",\n    \"build\": \"tsc\"\n  },\n  \"dependencies\": {\n    \"@clack/prompts\": \"^1.7.0\",\n    \"@google/generative-ai\": \"^0.24.1\",\n    \"boxen\": \"^8.0.1\",\n    \"chalk\": \"^6.0.0\",\n    \"commander\": \"^15.0.0\",\n    \"dotenv\": \"^17.4.2\",\n    \"fast-glob\": \"^3.3.3\",\n    \"gradient-string\": \"^3.0.0\",\n    \"ignore\": \"^7.0.6\",\n    \"ora\": \"^9.4.1\",\n    \"picocolors\": \"^1.1.1\",\n    \"simple-git\": \"^3.36.0\",\n    \"tree-sitter\": \"^0.25.1\",\n    \"tree-sitter-c-sharp\": \"^0.23.5\",\n    \"tree-sitter-cpp\": \"^0.23.4\",\n    \"tree-sitter-go\": \"^0.25.0\",\n    \"tree-sitter-java\": \"^0.23.5\",\n    \"tree-sitter-javascript\": \"^0.25.0\",\n    \"tree-sitter-php\": \"^0.24.2\",\n    \"tree-sitter-python\": \"^0.25.0\",\n    \"tree-sitter-ruby\": \"^0.23.1\",\n    \"tree-sitter-rust\": \"^0.24.0\",\n    \"tree-sitter-typescript\": \"^0.23.2\"\n  },\n  \"devDependencies\": {\n    \"@types/node\": \"^26.4.0\",\n    \"tsx\": \"^4.23.12\",\n    \"typescript\": \"^7.0.2\"\n  },\n  \"overrides\": {\n    \"tree-sitter\": \"$tree-sitter\"\n  }\n}\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "package.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "tsconfig.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"compilerOptions\": {\n    \"target\": \"ESNext\",\n    \"module\": \"NodeNext\",\n    \"moduleResolution\": \"NodeNext\",\n    \"allowImportingTsExtensions\": true,\n    \"noEmit\": true,\n    \"strict\": true,\n    \"esModuleInterop\": true,\n    \"skipLibCheck\": true\n  }\n}",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "tsconfig.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "bin/index.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "renderBigText",
+          "startLine": 55
+        },
+        {
+          "type": "function",
+          "name": "printBigSign",
+          "startLine": 66
+        },
+        {
+          "type": "class",
+          "name": "InkMascot",
+          "startLine": 133
+        },
+        {
+          "type": "function",
+          "name": "start",
+          "startLine": 141
+        },
+        {
+          "type": "function",
+          "name": "update",
+          "startLine": 151
+        },
+        {
+          "type": "function",
+          "name": "render",
+          "startLine": 155
+        },
+        {
+          "type": "function",
+          "name": "pulse",
+          "startLine": 173
+        },
+        {
+          "type": "function",
+          "name": "stop",
+          "startLine": 181
+        },
+        {
+          "type": "function",
+          "name": "inkBurst",
+          "startLine": 192
+        },
+        {
+          "type": "function",
+          "name": "printBootLog",
+          "startLine": 206
+        },
+        {
+          "type": "function",
+          "name": "bootSequence",
+          "startLine": 220
+        },
+        {
+          "type": "function",
+          "name": "checkMonorepoContext",
+          "startLine": 260
+        },
+        {
+          "type": "function",
+          "name": "promptForKey",
+          "startLine": 293
+        },
+        {
+          "type": "function",
+          "name": "validate",
+          "startLine": 297
+        },
+        {
+          "type": "function",
+          "name": "promptForGeminiKey",
+          "startLine": 313
+        },
+        {
+          "type": "function",
+          "name": "validate",
+          "startLine": 317
+        },
+        {
+          "type": "function",
+          "name": "main",
+          "startLine": 335
+        },
+        {
+          "type": "function",
+          "name": "validate",
+          "startLine": 399
+        }
+      ]
+    },
+    {
+      "file": "src/core/ai.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "sanitizeMermaidLabels",
+          "startLine": 89
+        },
+        {
+          "type": "function",
+          "name": "partitionIntoChunks",
+          "startLine": 101
+        },
+        {
+          "type": "function",
+          "name": "mapChunk",
+          "startLine": 123
+        },
+        {
+          "type": "function",
+          "name": "reduceSummaries",
+          "startLine": 185
+        },
+        {
+          "type": "function",
+          "name": "generateHandoffReport",
+          "startLine": 283
+        }
+      ]
+    },
+    {
+      "file": "src/core/auth.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "getConfig",
+          "startLine": 12
+        },
+        {
+          "type": "function",
+          "name": "saveConfig",
+          "startLine": 23
+        },
+        {
+          "type": "function",
+          "name": "getSavedKey",
+          "startLine": 32
+        },
+        {
+          "type": "function",
+          "name": "saveKey",
+          "startLine": 36
+        },
+        {
+          "type": "function",
+          "name": "getGeminiKey",
+          "startLine": 41
+        },
+        {
+          "type": "function",
+          "name": "saveGeminiKey",
+          "startLine": 45
+        },
+        {
+          "type": "function",
+          "name": "clearKey",
+          "startLine": 50
+        }
+      ]
+    },
+    {
+      "file": "src/core/cache.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "class",
+          "name": "CacheEngine",
+          "startLine": 5
+        },
+        {
+          "type": "function",
+          "name": "constructor",
+          "startLine": 9
+        },
+        {
+          "type": "function",
+          "name": "hashContent",
+          "startLine": 21
+        },
+        {
+          "type": "function",
+          "name": "get",
+          "startLine": 25
+        },
+        {
+          "type": "function",
+          "name": "set",
+          "startLine": 29
+        },
+        {
+          "type": "function",
+          "name": "save",
+          "startLine": 33
+        }
+      ]
+    },
+    {
+      "file": "src/core/git.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "parseGitHistory",
+          "startLine": 24
+        }
+      ]
+    },
+    {
+      "file": "src/core/parser.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "class",
+          "name": "ASTExtractor",
+          "startLine": 32
+        },
+        {
+          "type": "function",
+          "name": "constructor",
+          "startLine": 36
+        },
+        {
+          "type": "function",
+          "name": "detectEcosystem",
+          "startLine": 41
+        },
+        {
+          "type": "function",
+          "name": "generateDirectoryTree",
+          "startLine": 57
+        },
+        {
+          "type": "function",
+          "name": "setLanguage",
+          "startLine": 73
+        },
+        {
+          "type": "function",
+          "name": "parseFile",
+          "startLine": 117
+        }
+      ]
+    },
+    {
+      "file": "src/core/sanitizer.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "class",
+          "name": "Sanitizer",
+          "startLine": 1
+        },
+        {
+          "type": "function",
+          "name": "constructor",
+          "startLine": 4
+        },
+        {
+          "type": "function",
+          "name": "calculateEntropy",
+          "startLine": 12
+        },
+        {
+          "type": "function",
+          "name": "redactSecrets",
+          "startLine": 25
+        },
+        {
+          "type": "function",
+          "name": "shouldIgnore",
+          "startLine": 63
+        }
+      ]
+    },
+    {
+      "file": "src/core/verifier.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "verifyHandoffReport",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "src/types/index.d.ts",
+      "language": "typescript",
+      "symbols": []
+    }
+  ]
+}
