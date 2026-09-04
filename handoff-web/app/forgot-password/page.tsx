@@ -45,8 +45,7 @@ export default function ForgotPasswordPage() {
         return;
       }
 
-      // 🚨 INDUSTRY STANDARD: We push them to the reset page regardless of 
-      // whether the email was real or not, maintaining our silent drop security.
+      
       router.push(`/reset-password?email=${encodeURIComponent(email)}`);
       
     } catch (err) {
