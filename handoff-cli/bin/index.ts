@@ -1,11 +1,9 @@
 #!/usr/bin/env node
-// Silence native-module deprecation noise (e.g. tree-sitter "main" field warnings)
 process.removeAllListeners('warning');
 process.on('warning', () => {});
 
-// Catch Ctrl+C to restore the cursor and exit cleanly
 process.on('SIGINT', () => {
-  process.stdout.write('\x1B[?25h'); // Force cursor back on
+  process.stdout.write('\x1B[?25h');
   process.stdout.write('\n\n( ×_×) Process interrupted.\n');
   process.exit(130);
 });
@@ -17,7 +15,6 @@ import fs from 'fs';
 import fg from 'fast-glob';
 import path from 'path';
 
-// 2. Restored Core Imports with NEW Gemini Auth
 import { Sanitizer } from '../src/core/sanitizer.ts';
 import { ASTExtractor } from '../src/core/parser.ts';
 import { parseGitHistory } from '../src/core/git.ts';
@@ -26,15 +23,9 @@ import { generateHandoffReport } from '../src/core/ai.ts';
 import { verifyHandoffReport } from '../src/core/verifier.ts';
 import { generateHtmlReport } from '../../handoff-web/app/lib/html.ts';
 
-// =====================================================================
-// 0. TINY HELPERS
-// =====================================================================
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const clearLine = () => process.stdout.write('\r\x1B[K');
 
-// =====================================================================
-// 1. BIG BLOCK SIGN
-// =====================================================================
 const GLYPH_H = 8;
 const GLYPH_W = 6;
 const GUTTER = ' ';
@@ -66,11 +57,8 @@ const FLICKER_CHARS = ['░', '▒', '▓', '█'];
 async function printBigSign(word: string) {
   const rows = renderBigText(word);
   const width = rows[0].length;
-  
-  // Get actual terminal width, fallback to 80
   const termWidth = process.stdout.columns || 80;
 
-  // BULLETPROOF CHECK: If the terminal is too narrow, skip the animation entirely.
   if (termWidth <= width + 2) {
     for (const row of rows) {
       console.log(pc.bold(pc.white(row.slice(0, termWidth - 1))));
@@ -112,9 +100,6 @@ async function printBigSign(word: string) {
   }
 }
 
-// =====================================================================
-// 2. INK MASCOT
-// =====================================================================
 type MascotState = 'idle' | 'scan' | 'think' | 'success' | 'error' | 'warn' | 'retry';
 
 const ORBIT = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
@@ -200,9 +185,6 @@ class InkMascot {
   }
 }
 
-// =====================================================================
-// 3. BOOT SEQUENCE
-// =====================================================================
 async function printBootLog() {
   const lines = ['sanitizer.core', '::parser', 'git::history', 'handshake :: ready'];
   for (const line of lines) {
@@ -218,7 +200,7 @@ async function printBootLog() {
 }
 
 async function bootSequence() {
-  process.stdout.write('\x1Bc'); // Hard Clear
+  process.stdout.write('\x1Bc'); 
   await printBootLog();
 
   const boot = new InkMascot();
@@ -249,9 +231,6 @@ async function bootSequence() {
   await boot.pulse(600, 'idle');
 }
 
-// =====================================================================
-// 4. MONOREPO GUARDRAIL
-// =====================================================================
 interface RootCheckResult {
   looksLikeMonorepoRoot: boolean;
   warning?: string;
@@ -259,7 +238,6 @@ interface RootCheckResult {
 
 function checkMonorepoContext(cwd: string): RootCheckResult {
   const entries = fs.readdirSync(cwd);
-  const hasPackageJson = entries.includes('package.json');
   const hasWorkspaceConfig = entries.some((e: string) =>
     ['pnpm-workspace.yaml', 'lerna.json', 'nx.json', 'turbo.json'].includes(e)
   );
@@ -287,9 +265,6 @@ function checkMonorepoContext(cwd: string): RootCheckResult {
   return { looksLikeMonorepoRoot: hasWorkspaceConfig };
 }
 
-// =====================================================================
-// AUTHENTICATION HELPERS
-// =====================================================================
 async function promptForKey(): Promise<string> {
   const newKey = await p.text({
     message: pc.bold('Authentication Required. Paste your Handoff.io API key:'),
@@ -309,7 +284,6 @@ async function promptForKey(): Promise<string> {
   return keyString;
 }
 
-// --- NEW: GEMINI BYOK PROMPT ---
 async function promptForGeminiKey(): Promise<string> {
   const newKey = await p.text({
     message: pc.bold('Demo Mode: Enter your Google Gemini API Key (starts with AIza...):'),
@@ -329,26 +303,23 @@ async function promptForGeminiKey(): Promise<string> {
   return keyString;
 }
 
-// =====================================================================
-// 5. MAIN EXECUTION FLOW
-// =====================================================================
 async function main() {
   const args = process.argv.slice(2);
+  const command = args[0];
   
-  // Extract update ID if present
   let updateId: string | null = null;
   const updateIndex = args.indexOf('--update');
   if (updateIndex !== -1 && args.length > updateIndex + 1) {
     updateId = args[updateIndex + 1];
   }
 
-  if (args.includes('logout')) {
+  if (command === 'logout') {
     clearKey();
     console.log(`\n( -_-) ${pc.dim('Logged out. Keys wiped from local system.')}\n`);
     process.exit(0);
   }
   
-  if (args.includes('login')) {
+  if (command === 'auth' || command === 'login') {
     clearKey();
     process.stdout.write('\x1Bc');
     console.log(`\n( •_•) ${pc.dim('Secure Login Initialization')}\n`);
@@ -358,19 +329,26 @@ async function main() {
     process.exit(0);
   }
 
+  if (command === '--help' || command === '-h') {
+    console.log(`\n${pc.bold('Handoff.io CLI Commands:')}\n`);
+    console.log(`  ${pc.green('handoff')}                       ${pc.dim('Run interactive setup & scan')}`);
+    console.log(`  ${pc.blue('handoff push --update <id>')}  ${pc.dim('Silently update an existing project')}`);
+    console.log(`  ${pc.yellow('handoff auth')}                ${pc.dim('Authenticate your API keys')}`);
+    console.log(`  ${pc.red('handoff logout')}              ${pc.dim('Clear local credentials')}\n`);
+    process.exit(0);
+  }
+
   await bootSequence();
   const mascot = new InkMascot();
 
   p.intro(pc.bold(updateId ? `Initialize Re-Scan (Updating ${updateId})` : 'Initialize Scan'));
 
-  // --- HANDOFF AUTHENTICATION CHECK ---
   let apiKey = getSavedKey();
   if (!apiKey) {
     apiKey = await promptForKey();
     p.log.success('Handoff API Key validated locally.');
   }
 
-  // --- GEMINI AUTHENTICATION CHECK ---
   let geminiKey = getGeminiKey();
   if (!geminiKey) {
     geminiKey = await promptForGeminiKey();
@@ -379,30 +357,33 @@ async function main() {
 
   await mascot.pulse(250, 'idle');
 
-  const action = await p.select({
-    message: 'Define documentation target:',
-    options: [
-      { value: '.', label: 'Current directory', hint: 'runs in .' },
-      { value: 'other', label: 'External repository', hint: 'enter a folder path' }
-    ]
-  });
-
-  if (p.isCancel(action)) {
-    p.cancel('Handoff scan aborted.');
-    process.exit(0);
-  }
-
   let targetDir = '.';
-  if (action === 'other') {
-    const inputPath = await p.text({
-      message: 'Target path (e.g., ../client-project):',
-      validate(val) {
-        if (!val) return 'Path is required.';
-        if (!fs.existsSync(path.resolve(process.cwd(), val))) return 'Directory does not exist.';
-      }
+
+  if (command !== 'push') {
+    const action = await p.select({
+      message: 'Define documentation target:',
+      options: [
+        { value: '.', label: 'Current directory', hint: 'runs in .' },
+        { value: 'other', label: 'External repository', hint: 'enter a folder path' }
+      ]
     });
-    if (p.isCancel(inputPath)) process.exit(0);
-    targetDir = inputPath as string;
+
+    if (p.isCancel(action)) {
+      p.cancel('Handoff scan aborted.');
+      process.exit(0);
+    }
+
+    if (action === 'other') {
+      const inputPath = await p.text({
+        message: 'Target path (e.g., ../client-project):',
+        validate(val) {
+          if (!val) return 'Path is required.';
+          if (!fs.existsSync(path.resolve(process.cwd(), val))) return 'Directory does not exist.';
+        }
+      });
+      if (p.isCancel(inputPath)) process.exit(0);
+      targetDir = inputPath as string;
+    }
   }
 
   const projectPath = path.resolve(process.cwd(), targetDir);
@@ -429,7 +410,14 @@ async function main() {
   const ecosystems = astExtractor.detectEcosystem(projectPath);
   const dirTree = astExtractor.generateDirectoryTree(projectPath);
 
-  const allFiles = await fg('**/*', { cwd: projectPath, dot: true, onlyFiles: true });
+  // Added suppressErrors per previous fix
+  const allFiles = await fg('**/*', { 
+    cwd: projectPath, 
+    dot: true, 
+    onlyFiles: true,
+    suppressErrors: true, 
+    ignore: ['**/node_modules/**', '**/.git/**', '**/AppData/**', '**/Application Data/**'] 
+  });
   const validFiles = allFiles.filter((file) => !sanitizer.shouldIgnore(file));
 
   const structuralMap = [];
@@ -503,14 +491,12 @@ async function main() {
   const reportPath = path.join(projectPath, 'handoff-report.json');
   const htmlPath = path.join(projectPath, 'handoff-report.html');
 
-  // --- 1. RUN YOUR EXISTING LOCAL AI PIPELINE ---
   mascot.start('Initializing Gemini AI Map-Reduce pipeline...', 'think');
 
   let verifiedReport;
   try {
     fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
 
-    // --- NEW: PASS GEMINI KEY AS 3RD ARGUMENT ---
     const rawReport = await generateHandoffReport(manifest, projectPath, geminiKey, (status) => {
       mascot.update(status);
     });
@@ -529,14 +515,12 @@ async function main() {
     process.exit(1);
   }
 
-  // --- 2. CLOUD UPLOAD ---
   let uploadSuccess = false;
 
   while (!uploadSuccess) {
     mascot.start('Uploading finalized report to Handoff.io server...', 'think');
 
     try {
-      // NOTE: Make sure to change localhost:3000 to your deployed Vercel URL when ready!
       const res = await fetch("http://localhost:3000/api/generate", {
         method: "POST",
         headers: {
@@ -565,7 +549,6 @@ async function main() {
         'Success'
       );
 
-      // 3. AUTO-CLEANUP
       if (fs.existsSync(manifestPath)) fs.unlinkSync(manifestPath);
       if (fs.existsSync(reportPath)) fs.unlinkSync(reportPath);
       if (fs.existsSync(htmlPath)) fs.unlinkSync(htmlPath);

@@ -13,7 +13,8 @@ export default function DashboardPage() {
   // Core State
   const [activeTab, setActiveTab] = useState<"projects" | "settings">("projects");
   const [copied, setCopied] = useState(false);
-  const [copiedCommand, setCopiedCommand] = useState(false); // New state for the modal command copy
+  const [copiedCommand, setCopiedCommand] = useState(false); // Modal command copy
+  const [copiedCommandId, setCopiedCommandId] = useState<string | null>(null); // Settings tab copies
 
   // Projects State
   const [projects, setProjects] = useState<any[]>([]);
@@ -59,13 +60,11 @@ export default function DashboardPage() {
   const fetchProjectsAndNotifications = useCallback(async (silent = false) => {
     if (!silent) setIsLoadingProjects(true);
     try {
-      // Fetch Projects
       const projRes = await fetch("/api/projects");
       if (projRes.ok) {
         const data = await projRes.json();
         setProjects(data.projects);
       }
-      // Fetch Notifications
       const notifRes = await fetch("/api/notifications");
       if (notifRes.ok) {
         const nData = await notifRes.json();
@@ -79,7 +78,6 @@ export default function DashboardPage() {
     }
   }, []);
 
-  // Fetch on mount and focus
   useEffect(() => {
     if (status !== "authenticated" || activeTab !== "projects") return;
     fetchProjectsAndNotifications();
@@ -89,7 +87,6 @@ export default function DashboardPage() {
     return () => window.removeEventListener("focus", handleFocus);
   }, [status, activeTab, fetchProjectsAndNotifications]);
 
-  // Settings tab key fetch
   useEffect(() => {
     if (status === "authenticated" && activeTab === "settings" && !partialKey && !rawKeyDisplay) {
       const fetchKeyStatus = async () => {
@@ -105,7 +102,6 @@ export default function DashboardPage() {
     }
   }, [status, activeTab, partialKey, rawKeyDisplay]);
 
-  // Post-Auth Auto-Save Interceptor
   useEffect(() => {
     if (status === "authenticated") {
       const pendingSlug = localStorage.getItem("pending_save_slug");
@@ -129,7 +125,6 @@ export default function DashboardPage() {
   const toggleNotifications = async () => {
     setIsNotifOpen(!isNotifOpen);
     if (!isNotifOpen && unreadCount > 0) {
-      // Mark as read in DB quietly
       setUnreadCount(0);
       await fetch("/api/notifications", { method: "PATCH" });
     }
@@ -159,6 +154,12 @@ export default function DashboardPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleCommandRefCopy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCommandId(id);
+    setTimeout(() => setCopiedCommandId(null), 2000);
+  };
+
   const handleShare = (e: React.MouseEvent, slug: string) => {
     e.stopPropagation();
     const url = `${window.location.origin}/p/${slug}`;
@@ -170,7 +171,6 @@ export default function DashboardPage() {
   const handleProjectClick = async (project: any) => {
     if (project.status === "processing") return;
     
-    // Only the true owner can access the rename modal
     if (project.is_new && project.is_owner) {
       setSelectedProject(project);
       setNewProjectName(project.name);
@@ -178,7 +178,6 @@ export default function DashboardPage() {
       return;
     }
     
-    // Only the true owner can access the client feedback modal
     if ((project.status === "delivered" || project.status === "rejected") && project.is_owner) {
       try {
         const res = await fetch(`/api/projects/${project.id}`);
@@ -193,7 +192,6 @@ export default function DashboardPage() {
       return;
     }
 
-    // FIX: Route non-owners directly to the public client portal, NOT the editor!
     if (project.is_owner) {
       router.push(`/editor/${project.slug}`); 
     } else {
@@ -372,14 +370,21 @@ export default function DashboardPage() {
 
       <main className="mx-auto max-w-5xl px-6 py-12 animate-fade-up">
         
-        {/* VIEW 1: PROJECTS */}
+        {/* PERSONALIZED GREETING */}
+        <div className="mb-10 border-b border-white/5 pb-8">
+          <h1 className="text-2xl font-medium tracking-tight text-white">
+            Welcome back, {session?.user?.name || "Developer"}.
+          </h1>
+          <p className="mt-1 text-sm text-slate-400">
+            {activeTab === "projects" 
+              ? "Here is an overview of your recent client handoff deliverables." 
+              : "Manage your CLI authentication, installation, and command reference."}
+          </p>
+        </div>
+
+        {/* VIEW 1: PROJECTS (Your Original Design) */}
         {activeTab === "projects" && (
           <div className="space-y-8">
-            <div className="border-b border-white/5 pb-6">
-              <h1 className="text-2xl font-semibold tracking-tight text-white">Your Deliverables</h1>
-              <p className="mt-1 text-sm text-slate-400">Manage your generated client handoff portals.</p>
-            </div>
-
             {isLoadingProjects ? (
               <div className="flex justify-center py-20"><svg className="h-6 w-6 animate-spin text-slate-500" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25"></circle><path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" className="opacity-75"></path></svg></div>
             ) : projects.length === 0 ? (
@@ -458,59 +463,125 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* VIEW 2: SETTINGS */}
+        {/* VIEW 2: SETTINGS / API (Clean Minimalist Design) */}
         {activeTab === "settings" && (
-          <div className="space-y-8 animate-fade-up">
-            <div className="border-b border-white/5 pb-6">
-              <h1 className="text-2xl font-semibold tracking-tight text-white">Developer Settings</h1>
-              <p className="mt-1 text-sm text-slate-400">Manage your CLI authentication and account preferences.</p>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-[#121212] p-6 max-w-2xl">
-              <h3 className="text-base font-semibold text-white">CLI Authentication</h3>
-              <p className="mt-1 text-sm text-slate-400 mb-6">
-                Use this API key to authenticate the local CLI tool. Keep it secure.
-              </p>
+          <div className="max-w-3xl space-y-12 pb-12">
+            
+            {/* Section 1: Installation */}
+            <section>
+              <h2 className="text-[15px] font-medium text-white mb-1">Global Installation</h2>
+              <p className="text-sm text-slate-400 mb-5">Install the CLI globally on your machine to run it from any directory.</p>
+              
+              <div className="flex items-center justify-between rounded-md border border-white/10 bg-[#0f0f0f] px-4 py-3">
+                <code className="text-[13px] font-mono text-slate-300">npm install -g handoff-io-cli</code>
+                <button
+                  onClick={() => handleCommandRefCopy("npm install -g handoff-io-cli", "install")}
+                  className="text-xs font-medium text-slate-400 hover:text-white transition-colors ml-4"
+                >
+                  {copiedCommandId === "install" ? "Copied" : "Copy"}
+                </button>
+              </div>
+            </section>
+
+            {/* Section 2: Authentication */}
+            <section className="border-t border-white/5 pt-10">
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <h2 className="text-[15px] font-medium text-white mb-1">Authentication</h2>
+                  <p className="text-sm text-slate-400">Manage the API key used to link your local CLI to your account.</p>
+                </div>
+                {partialKey && (
+                   <button
+                     onClick={() => handleGenerateOrReplaceKey(true)}
+                     disabled={isActionLoading}
+                     className="text-[13px] font-medium text-red-400 hover:text-red-300 transition-colors disabled:opacity-50"
+                   >
+                     {isActionLoading ? "Revoking..." : "Revoke Key"}
+                   </button>
+                )}
+              </div>
+              
               {!partialKey && !rawKeyDisplay ? (
                 <button
                   onClick={() => handleGenerateOrReplaceKey(false)}
                   disabled={isActionLoading}
-                  className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-black hover:bg-slate-200 transition-colors disabled:opacity-50"
+                  className="rounded-md bg-white px-5 py-2.5 text-sm font-medium text-black hover:bg-slate-200 transition-colors disabled:opacity-50"
                 >
-                  {isActionLoading ? "Generating..." : "Generate API Key"}
+                  {isActionLoading ? "Generating..." : "Generate Key"}
                 </button>
               ) : (
                 <div className="space-y-4">
                   {rawKeyDisplay && (
-                    <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 mb-4">
-                      <p className="text-sm text-amber-200 font-medium">
-                        Please copy your new API key now. It will not be shown again!
+                    <div className="rounded-md border border-white/10 bg-[#0f0f0f] p-4 mb-4">
+                      <p className="text-[13px] text-slate-300">
+                        Store this key securely. You will not be able to see it again.
                       </p>
                     </div>
                   )}
                   
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                    <code className="flex-1 min-w-0 break-all rounded-lg border border-[#262626] bg-[#1a1a1a] px-4 py-3 text-sm text-white font-mono">
+                  <div className="flex items-center justify-between rounded-md border border-white/10 bg-[#0f0f0f] px-4 py-3">
+                    <code className="text-[13px] font-mono text-slate-300 truncate pr-4">
                       {rawKeyDisplay ? rawKeyDisplay : partialKey}
                     </code>
                     <button
                       onClick={() => handleCopy(rawKeyDisplay || partialKey || "")}
-                      className="flex shrink-0 items-center justify-center rounded-lg border border-white/10 bg-[#1a1a1a] px-6 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all sm:w-28"
+                      className="text-xs font-medium text-slate-400 hover:text-white transition-colors shrink-0"
                     >
-                      {copied ? "Copied!" : "Copy"}
-                    </button>
-                  </div>
-                  <div className="pt-6 mt-2 border-t border-white/5">
-                    <button
-                      onClick={() => handleGenerateOrReplaceKey(true)}
-                      disabled={isActionLoading}
-                      className="text-sm font-medium text-red-400 hover:text-red-300 transition-colors disabled:opacity-50"
-                    >
-                      {isActionLoading ? "Processing..." : "Revoke & Replace API Key"}
+                      {copied ? "Copied" : "Copy Key"}
                     </button>
                   </div>
                 </div>
               )}
-            </div>
+            </section>
+
+            {/* Section 3: Command Reference */}
+            <section className="border-t border-white/5 pt-10">
+              <h2 className="text-[15px] font-medium text-white mb-1">Command Reference</h2>
+              <p className="text-sm text-slate-400 mb-6">Available commands for the Handoff CLI.</p>
+              
+              <dl className="space-y-6">
+                
+                {/* Command 1 */}
+                <div className="grid grid-cols-1 sm:grid-cols-[220px_1fr] gap-2 sm:gap-6 border-l-2 border-white/10 pl-4 py-1">
+                  <dt>
+                    <div className="flex items-center justify-between w-full">
+                      <code className="text-[13px] font-mono text-slate-200">handoff</code>
+                    </div>
+                  </dt>
+                  <dd className="text-[13px] text-slate-400 leading-relaxed">
+                    Initializes interactive mode, scans the local project files, and pushes a fresh draft to your dashboard.
+                    <button onClick={() => handleCommandRefCopy("handoff", "cmd1")} className="mt-1 sm:mt-0 sm:ml-3 text-[11px] text-slate-500 hover:text-white transition-colors block sm:inline-block">{copiedCommandId === "cmd1" ? "Copied" : "Copy"}</button>
+                  </dd>
+                </div>
+
+                {/* Command 2 */}
+                <div className="grid grid-cols-1 sm:grid-cols-[220px_1fr] gap-2 sm:gap-6 border-l-2 border-white/10 pl-4 py-1">
+                  <dt>
+                    <div className="flex items-center justify-between w-full">
+                      <code className="text-[13px] font-mono text-slate-200 break-all">handoff push --update &lt;id&gt;</code>
+                    </div>
+                  </dt>
+                  <dd className="text-[13px] text-slate-400 leading-relaxed">
+                    Bypasses interactive setup to instantly rescan the directory and silently update an existing project (ideal for client revisions).
+                    <button onClick={() => handleCommandRefCopy("handoff push --update", "cmd2")} className="mt-1 sm:mt-0 sm:ml-3 text-[11px] text-slate-500 hover:text-white transition-colors block sm:inline-block">{copiedCommandId === "cmd2" ? "Copied" : "Copy"}</button>
+                  </dd>
+                </div>
+
+                {/* Command 3 */}
+                <div className="grid grid-cols-1 sm:grid-cols-[220px_1fr] gap-2 sm:gap-6 border-l-2 border-white/10 pl-4 py-1">
+                  <dt>
+                    <div className="flex items-center justify-between w-full">
+                      <code className="text-[13px] font-mono text-slate-200">handoff auth</code>
+                    </div>
+                  </dt>
+                  <dd className="text-[13px] text-slate-400 leading-relaxed">
+                    Prompts for your private API Key to securely authenticate the machine environment.
+                    <button onClick={() => handleCommandRefCopy("handoff auth", "cmd3")} className="mt-1 sm:mt-0 sm:ml-3 text-[11px] text-slate-500 hover:text-white transition-colors block sm:inline-block">{copiedCommandId === "cmd3" ? "Copied" : "Copy"}</button>
+                  </dd>
+                </div>
+
+              </dl>
+            </section>
           </div>
         )}
       </main>
