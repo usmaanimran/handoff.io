@@ -86,13 +86,20 @@ interface IntermediateChunkSummary {
 }
 
 function sanitizeMermaidLabels(mermaidBlock: string): string {
-  const nodePattern = /(\w+)(\[|\(\[|\[\(|\{\{|\(|\{)([^"\]\)\}][^\]\)\}]*)(\]|\)\]|\)\]|\}\}|\)|\})/g;
+  
+  const nodePattern = /(\w+)(\[\(|\(\[|\[|\{\{|\(|\{)([^\]\)\}]*)(\)\]|\]\)|\]|\}\}|\)|\})/g;
+  
   return mermaidBlock.replace(nodePattern, (match, id, openBracket, label, closeBracket) => {
-    const needsQuoting = /[\/\.\:\-\s]/.test(label) && !label.startsWith('"');
+    if (label.trim().startsWith('"')) {
+      return match;
+    }
+    
+    const needsQuoting = /[\/\.\:\-\s]/.test(label);
     if (needsQuoting) {
       const escaped = label.replace(/"/g, '#quot;');
       return `${id}${openBracket}"${escaped}"${closeBracket}`;
     }
+    
     return match;
   });
 }

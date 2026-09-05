@@ -1,6 +1,6 @@
 {
   "name": "handoff-io-cli",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "type": "module",
   "description": "Automated project delivery and client handoff engine",
   "main": "dist/index.js",
