@@ -1261,5 +1261,210 @@
       "./sanitizer",
       "../types"
     ]
+  },
+  "e12414e885f8555f62c50143f9f0446e31bf5228d83dbd36a007336d1ff0fa75": {
+    "domain": "handoff-web/app (part 2)",
+    "moduleRole": "Handles core application API routes including user authentication, verification, notifications, API key management, project workspace endpoints, and the primary dynamic visual editor page.",
+    "identifiedUIComponents": [
+      {
+        "name": "EditorPage",
+        "purpose": "Renders the primary project editor UI and workspace canvas based on the project's unique slug identifier.",
+        "sourceFile": "handoff-web/app/editor/[slug]/page.tsx"
+      }
+    ],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/handshake",
+        "description": "Initializes connection handshakes for remote agents or integration endpoints.",
+        "sourceFile": "handoff-web/app/api/handshake/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/keys",
+        "description": "Retrieves API keys configured for the authenticated user/organization.",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/keys",
+        "description": "Creates a new API key.",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/keys",
+        "description": "Deletes or revokes an API key.",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "description": "Retrieves the user's notification stream.",
+        "sourceFile": "handoff-web/app/api/notifications/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/notifications",
+        "description": "Updates read status or dismisses user notifications.",
+        "sourceFile": "handoff-web/app/api/notifications/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/projects",
+        "description": "Retrieves lists of available projects.",
+        "sourceFile": "handoff-web/app/api/projects/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/projects",
+        "description": "Partially updates existing project configurations or details.",
+        "sourceFile": "handoff-web/app/api/projects/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Handles new user registration and account creation.",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends verification or confirmation emails to users.",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/reset-password",
+        "description": "Handles verification tokens and resets user passwords.",
+        "sourceFile": "handoff-web/app/api/reset-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/verify",
+        "description": "Verifies account registration or activation tokens.",
+        "sourceFile": "handoff-web/app/api/verify/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/p/[slug]",
+        "description": "Dynamic lookup/proxy endpoint to display or redirect to shared project views.",
+        "sourceFile": "handoff-web/app/p/[slug]/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/projects/save",
+        "description": "Saves active project states, layout updates, and design workspace configurations.",
+        "sourceFile": "handoff-web/app/api/projects/save/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/projects/update",
+        "description": "Triggers batch or custom updates for existing active projects.",
+        "sourceFile": "handoff-web/app/api/projects/update/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [
+      "Project",
+      "User",
+      "ApiKey",
+      "Notification"
+    ],
+    "keyInternalDependencies": [
+      "next/server",
+      "next/navigation"
+    ]
+  },
+  "40e271df9e8a4f23747bfb43f2999bd9d1332a5126e11f235022c86dcf266046": {
+    "domain": "handoff-web/app (part 1)",
+    "moduleRole": "Handles the core user authentication interfaces, app layouts, main dashboard frontend views, token-based verification routes, and API endpoints for generation and password recovery.",
+    "identifiedUIComponents": [
+      {
+        "name": "RootLayout",
+        "purpose": "Provides the root layout structure for the entire Next.js application.",
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "name": "Home",
+        "purpose": "Renders the landing or index page of the application.",
+        "sourceFile": "handoff-web/app/page.tsx"
+      },
+      {
+        "name": "Providers",
+        "purpose": "Wraps the application tree with essential React providers (such as context, theme, or state queries).",
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "name": "DashboardPage",
+        "purpose": "Renders the primary dashboard view for authenticated users.",
+        "sourceFile": "handoff-web/app/dash/page.tsx"
+      },
+      {
+        "name": "ForgotPasswordPage",
+        "purpose": "Renders the form allowing users to request a password reset email.",
+        "sourceFile": "handoff-web/app/forgot-password/page.tsx"
+      },
+      {
+        "name": "LoginPage",
+        "purpose": "Renders the user authentication login form.",
+        "sourceFile": "handoff-web/app/login/page.tsx"
+      },
+      {
+        "name": "RegisterPage",
+        "purpose": "Renders the user registration/sign-up form.",
+        "sourceFile": "handoff-web/app/register/page.tsx"
+      },
+      {
+        "name": "ResetPasswordPage",
+        "purpose": "Renders the UI for inputting a new password using a token, housing ResetPasswordContent.",
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      },
+      {
+        "name": "VerifyPage",
+        "purpose": "Renders the user account verification confirmation UI, housing VerifyContent.",
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      }
+    ],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Handles password reset requests, validating inputs and initiating recovery email distribution.",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/generate",
+        "description": "Handles requests to generate export packages or reports.",
+        "sourceFile": "handoff-web/app/api/generate/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "HtmlUtility",
+        "purpose": "Computes, formats, and generates structural HTML reports for exports.",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-web/app/lib/html.ts"
+      }
+    ],
+    "identifiedEnvVars": [
+      {
+        "name": "NEXT_PUBLIC_APP_URL",
+        "purpose": "Constructs absolute verification and recovery redirect URLs.",
+        "required": false
+      }
+    ],
+    "databaseStructures": [
+      "User",
+      "VerificationToken"
+    ],
+    "keyInternalDependencies": [
+      "../lib/html",
+      "../Providers"
+    ]
   }
 }

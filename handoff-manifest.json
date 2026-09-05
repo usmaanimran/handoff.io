@@ -1,21 +1,26 @@
 {
   "meta": {
-    "scannedAt": "2026-09-05T07:57:09.889Z",
+    "scannedAt": "2026-09-05T08:13:46.292Z",
     "ecosystems": [
       "Node/Web"
     ],
-    "directoryTree": "├── handoff-cli\n│   ├── bin\n│   │   ├── index.ts\n│   ├── handoff-manifest.json\n│   ├── package.json\n│   ├── src\n│   │   ├── core\n│   │   │   ├── ai.ts\n│   │   │   ├── auth.ts\n│   │   │   ├── cache.ts\n│   │   │   ├── git.ts\n│   │   │   ├── parser.ts\n│   │   │   ├── sanitizer.ts\n│   │   │   ├── verifier.ts\n│   │   ├── types\n│   │   │   ├── index.d.ts\n│   ├── tsconfig.json\n│   ├── tsup.config.ts\n├── handoff-web\n│   ├── AGENTS.md\n│   ├── app\n│   │   ├── api\n│   │   │   ├── auth\n│   │   │   ├── forgot-password\n│   │   │   ├── generate\n│   │   │   ├── handshake\n│   │   │   ├── keys\n│   │   │   ├── notifications\n│   │   │   ├── projects\n│   │   │   ├── register\n│   │   │   ├── resend\n│   │   │   ├── reset-password\n│   │   │   ├── verify\n│   │   ├── dash\n│   │   │   ├── page.tsx\n│   │   ├── editor\n│   │   │   ├── [slug]\n│   │   ├── favicon.ico\n│   │   ├── forgot-password\n│   │   │   ├── page.tsx\n│   │   ├── globals.css\n│   │   ├── layout.tsx\n│   │   ├── lib\n│   │   │   ├── html.ts\n│   │   ├── login\n│   │   │   ├── page.tsx\n│   │   ├── p\n│   │   │   ├── [slug]\n│   │   ├── page.tsx\n│   │   ├── Providers.tsx\n│   │   ├── register\n│   │   │   ├── page.tsx\n│   │   ├── reset-password\n│   │   │   ├── page.tsx\n│   │   ├── verify\n│   │   │   ├── page.tsx\n│   ├── CLAUDE.md\n│   ├── eslint.config.mjs\n│   ├── middleware.ts\n│   ├── next-env.d.ts\n│   ├── next.config.ts\n│   ├── package.json\n│   ├── postcss.config.mjs\n│   ├── public\n│   │   ├── file.svg\n│   │   ├── globe.svg\n│   │   ├── next.svg\n│   │   ├── vercel.svg\n│   │   ├── window.svg\n│   ├── README.md\n│   ├── tsconfig.json\n├── package.json\n",
-    "totalFilesScanned": 56
+    "directoryTree": "├── handoff-cli\n│   ├── bin\n│   │   ├── index.ts\n│   ├── handoff-manifest.json\n│   ├── package.json\n│   ├── src\n│   │   ├── core\n│   │   │   ├── ai.ts\n│   │   │   ├── auth.ts\n│   │   │   ├── cache.ts\n│   │   │   ├── git.ts\n│   │   │   ├── parser.ts\n│   │   │   ├── sanitizer.ts\n│   │   │   ├── verifier.ts\n│   │   ├── types\n│   │   │   ├── index.d.ts\n│   ├── tsconfig.json\n│   ├── tsup.config.ts\n├── handoff-manifest.json\n├── handoff-web\n│   ├── AGENTS.md\n│   ├── app\n│   │   ├── api\n│   │   │   ├── auth\n│   │   │   ├── forgot-password\n│   │   │   ├── generate\n│   │   │   ├── handshake\n│   │   │   ├── keys\n│   │   │   ├── notifications\n│   │   │   ├── projects\n│   │   │   ├── register\n│   │   │   ├── resend\n│   │   │   ├── reset-password\n│   │   │   ├── verify\n│   │   ├── dash\n│   │   │   ├── page.tsx\n│   │   ├── editor\n│   │   │   ├── [slug]\n│   │   ├── favicon.ico\n│   │   ├── forgot-password\n│   │   │   ├── page.tsx\n│   │   ├── globals.css\n│   │   ├── layout.tsx\n│   │   ├── lib\n│   │   │   ├── html.ts\n│   │   ├── login\n│   │   │   ├── page.tsx\n│   │   ├── p\n│   │   │   ├── [slug]\n│   │   ├── page.tsx\n│   │   ├── Providers.tsx\n│   │   ├── register\n│   │   │   ├── page.tsx\n│   │   ├── reset-password\n│   │   │   ├── page.tsx\n│   │   ├── verify\n│   │   │   ├── page.tsx\n│   ├── CLAUDE.md\n│   ├── eslint.config.mjs\n│   ├── middleware.ts\n│   ├── next-env.d.ts\n│   ├── next.config.ts\n│   ├── package.json\n│   ├── postcss.config.mjs\n│   ├── public\n│   │   ├── file.svg\n│   │   ├── globe.svg\n│   │   ├── next.svg\n│   │   ├── vercel.svg\n│   │   ├── window.svg\n│   ├── README.md\n│   ├── tsconfig.json\n├── package.json\n",
+    "totalFilesScanned": 57
   },
   "git": {
     "branch": "main",
     "latestCommit": {
-      "hash": "66a15ffe92354ffa448841d48fe2540be4b76282",
-      "message": "login bugs",
+      "hash": "5f99bda9389f40ef481d4b2bfd98d3260dfd6df2",
+      "message": "nexturl bug",
       "author_name": "usmaanimran",
-      "date": "2026-09-05T13:10:55+05:30"
+      "date": "2026-09-05T13:41:30+05:30"
     },
     "recentCommits": [
+      {
+        "hash": "5f99bda",
+        "message": "nexturl bug",
+        "date": "2026-09-05T13:41:30+05:30"
+      },
       {
         "hash": "66a15ff",
         "message": "login bugs",
@@ -43,12 +48,25 @@
       }
     ],
     "diffSummary": {
-      "changedFiles": 64,
-      "insertions": 19690,
-      "deletions": 0
+      "changedFiles": 180,
+      "insertions": 19094,
+      "deletions": 799174
     }
   },
   "architecture": [
+    {
+      "file": "handoff-manifest.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"meta\": {\n    \"scannedAt\": \"2026-09-05T07:57:09.889Z\",\n    \"ecosystems\": [\n      \"Node/Web\"\n    ],\n    \"directoryTree\": \"├── handoff-cli\\n│   ├── bin\\n│   │   ├── index.ts\\n│   ├── handoff-manifest.json\\n│   ├── package.json\\n│   ├── src\\n│   │   ├── core\\n│   │   │   ├── ai.ts\\n│   │   │   ├── auth.ts\\n│   │   │   ├── cache.ts\\n│   │   │   ├── git.ts\\n│   │   │   ├── parser.ts\\n│   │   │   ├── sanitizer.ts\\n│   │   │   ├── verifier.ts\\n│   │   ├── types\\n│   │   │   ├── index.d.ts\\n│   ├── tsconfig.json\\n│   ├── tsup.config.ts\\n├── handoff-web\\n│   ├── AGENTS.md\\n│   ├── app\\n│   │   ├── api\\n│   │   │   ├── auth\\n│   │   │   ├── forgot-password\\n│   │   │   ├── generate\\n│   │   │   ├── handshake\\n│   │   │   ├── keys\\n│   │   │   ├── notifications\\n│   │   │   ├── projects\\n│   │   │   ├── register\\n│   │   │   ├── resend\\n│   │   │   ├── reset-password\\n│   │   │   ├── verify\\n│   │   ├── dash\\n│   │   │   ├── page.tsx\\n│   │   ├── editor\\n│   │   │   ├── [slug]\\n│   │   ├── favicon.ico\\n│   │   ├── forgot-password\\n│   │   │   ├── page.tsx\\n│   │   ├── globals.css\\n│   │   ├── layout.tsx\\n│   │   ├── lib\\n│   │   │   ├── html.ts\\n│   │   ├── login\\n│   │   │   ├── page.tsx\\n│   │   ├── p\\n│   │   │   ├── [slug]\\n│   │   ├── page.tsx\\n│   │   ├── Providers.tsx\\n│   │   ├── register\\n│   │   │   ├── page.tsx\\n│   │   ├── reset-password\\n│   │   │   ├── page.tsx\\n│   │   ├── verify\\n│   │   │   ├── page.tsx\\n│   ├── CLAUDE.md\\n│   ├── eslint.config.mjs\\n│   ├── middlewa",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "handoff-manifest.json",
+          "startLine": 1
+        }
+      ]
+    },
     {
       "file": "package.json",
       "language": "unknown",
@@ -219,52 +237,6 @@
       "symbols": []
     },
     {
-      "file": "handoff-web/app/globals.css",
-      "language": "unknown",
-      "isRaw": true,
-      "rawContent": "@import \"tailwindcss\";\n\n:root {\n  --background: #ffffff;\n  --foreground: #171717;\n}\n\n@theme inline {\n  --color-background: var(--background);\n  --color-foreground: var(--foreground);\n  --font-sans: var(--font-geist-sans);\n  --font-mono: var(--font-geist-mono);\n}\n\n@media (prefers-color-scheme: dark) {\n  :root {\n    --background: #0a0a0a;\n    --foreground: #ededed;\n  }\n}\n\nbody {\n  background: var(--background);\n  color: var(--foreground);\n  font-family: Arial, Helvetica, sans-serif;\n}\n",
-      "symbols": [
-        {
-          "type": "infra",
-          "name": "globals.css",
-          "startLine": 1
-        }
-      ]
-    },
-    {
-      "file": "handoff-web/app/layout.tsx",
-      "language": "typescriptreact",
-      "symbols": [
-        {
-          "type": "function",
-          "name": "RootLayout",
-          "startLine": 22
-        }
-      ]
-    },
-    {
-      "file": "handoff-web/app/page.tsx",
-      "language": "typescriptreact",
-      "symbols": [
-        {
-          "type": "function",
-          "name": "Home",
-          "startLine": 3
-        }
-      ]
-    },
-    {
-      "file": "handoff-web/app/Providers.tsx",
-      "language": "typescriptreact",
-      "symbols": [
-        {
-          "type": "function",
-          "name": "Providers",
-          "startLine": 6
-        }
-      ]
-    },
-    {
       "file": "handoff-web/public/file.svg",
       "language": "unknown",
       "isRaw": true,
@@ -326,6 +298,52 @@
           "type": "infra",
           "name": "window.svg",
           "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/globals.css",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "@import \"tailwindcss\";\n\n:root {\n  --background: #ffffff;\n  --foreground: #171717;\n}\n\n@theme inline {\n  --color-background: var(--background);\n  --color-foreground: var(--foreground);\n  --font-sans: var(--font-geist-sans);\n  --font-mono: var(--font-geist-mono);\n}\n\n@media (prefers-color-scheme: dark) {\n  :root {\n    --background: #0a0a0a;\n    --foreground: #ededed;\n  }\n}\n\nbody {\n  background: var(--background);\n  color: var(--foreground);\n  font-family: Arial, Helvetica, sans-serif;\n}\n\n/* Hide native browser password reveal icons (Edge/IE) */\ninput[type=\"password\"]::-ms-reveal,\ninput[type=\"password\"]::-ms-clear {\n  display: none;\n}",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "globals.css",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/layout.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "RootLayout",
+          "startLine": 22
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "Home",
+          "startLine": 3
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/Providers.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "Providers",
+          "startLine": 6
         }
       ]
     },
@@ -513,11 +531,6 @@
       ]
     },
     {
-      "file": "handoff-cli/src/types/index.d.ts",
-      "language": "typescript",
-      "symbols": []
-    },
-    {
       "file": "handoff-cli/src/core/ai.ts",
       "language": "typescript",
       "symbols": [
@@ -533,18 +546,23 @@
         },
         {
           "type": "function",
+          "name": "generateWithFallback",
+          "startLine": 124
+        },
+        {
+          "type": "function",
           "name": "mapChunk",
-          "startLine": 122
+          "startLine": 144
         },
         {
           "type": "function",
           "name": "reduceSummaries",
-          "startLine": 184
+          "startLine": 206
         },
         {
           "type": "function",
           "name": "generateHandoffReport",
-          "startLine": 282
+          "startLine": 304
         }
       ]
     },
@@ -715,15 +733,9 @@
       ]
     },
     {
-      "file": "handoff-web/app/editor/[slug]/page.tsx",
-      "language": "typescriptreact",
-      "symbols": [
-        {
-          "type": "function",
-          "name": "EditorPage",
-          "startLine": 17
-        }
-      ]
+      "file": "handoff-cli/src/types/index.d.ts",
+      "language": "typescript",
+      "symbols": []
     },
     {
       "file": "handoff-web/app/api/forgot-password/route.ts",
@@ -738,6 +750,17 @@
     },
     {
       "file": "handoff-web/app/api/generate/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 10
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/handshake/route.ts",
       "language": "typescript",
       "symbols": [
         {
@@ -765,6 +788,22 @@
           "type": "function",
           "name": "DELETE",
           "startLine": 63
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/notifications/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "GET",
+          "startLine": 11
+        },
+        {
+          "type": "function",
+          "name": "PATCH",
+          "startLine": 34
         }
       ]
     },
@@ -807,29 +846,13 @@
       ]
     },
     {
-      "file": "handoff-web/app/api/handshake/route.ts",
+      "file": "handoff-web/app/api/reset-password/route.ts",
       "language": "typescript",
       "symbols": [
         {
           "type": "function",
           "name": "POST",
           "startLine": 10
-        }
-      ]
-    },
-    {
-      "file": "handoff-web/app/api/notifications/route.ts",
-      "language": "typescript",
-      "symbols": [
-        {
-          "type": "function",
-          "name": "GET",
-          "startLine": 11
-        },
-        {
-          "type": "function",
-          "name": "PATCH",
-          "startLine": 34
         }
       ]
     },
@@ -845,23 +868,23 @@
       ]
     },
     {
+      "file": "handoff-web/app/editor/[slug]/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "EditorPage",
+          "startLine": 17
+        }
+      ]
+    },
+    {
       "file": "handoff-web/app/p/[slug]/route.ts",
       "language": "typescript",
       "symbols": [
         {
           "type": "function",
           "name": "GET",
-          "startLine": 10
-        }
-      ]
-    },
-    {
-      "file": "handoff-web/app/api/reset-password/route.ts",
-      "language": "typescript",
-      "symbols": [
-        {
-          "type": "function",
-          "name": "POST",
           "startLine": 10
         }
       ]

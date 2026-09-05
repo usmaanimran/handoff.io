@@ -120,24 +120,39 @@ function partitionIntoChunks(files: any[], maxFilesPerChunk = 12): Array<{ domai
 }
 
 const FALLBACK_MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash'];
+const MAX_RETRIES = 3;
 
 async function generateWithFallback(genAI: any, promptText: string): Promise<string> {
   let lastError;
-  for (const modelName of FALLBACK_MODELS) {
-    try {
-      const model = genAI.getGenerativeModel({
-        model: modelName,
-        generationConfig: { responseMimeType: 'application/json' }
-      });
-      const response = await model.generateContent(promptText);
-      return response.response.text();
-    } catch (error: any) {
-      lastError = error;
-      if (error.message && (error.message.includes('401') || error.message.includes('403'))) {
-        throw error;
+  
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    for (const modelName of FALLBACK_MODELS) {
+      try {
+        const model = genAI.getGenerativeModel({
+          model: modelName,
+          generationConfig: { responseMimeType: 'application/json' }
+        });
+        const response = await model.generateContent(promptText);
+        return response.response.text();
+      } catch (error: any) {
+        lastError = error;
+        // If it's an auth/key error, kill it immediately. No point retrying bad keys.
+        if (error.message && (error.message.includes('401') || error.message.includes('403'))) {
+          throw error;
+        }
+        // Otherwise, silently swallow the 503/404 and try the next model
       }
     }
+    
+    // If we get here, ALL models failed on this attempt. 
+    // If we have retries left, pause for 5 seconds and try again.
+    if (attempt < MAX_RETRIES) {
+      console.log(`\n⏳ Google API is overloaded. Pausing 5s and retrying... (Attempt ${attempt}/${MAX_RETRIES})`);
+      await new Promise(resolve => setTimeout(resolve, 5000));
+    }
   }
+  
+  // Only throw if it fails every model across all 3 retry loops
   throw lastError;
 }
 
