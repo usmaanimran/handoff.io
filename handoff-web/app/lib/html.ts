@@ -1,3 +1,4 @@
+// lib/html.ts
 export function generateHtmlReport(
   report: any, 
   slug: string = '', 
@@ -704,7 +705,15 @@ export function generateHtmlReport(
       
       wrap.innerHTML = '<pre class="mermaid"></pre>';
       const newPre = wrap.querySelector('pre.mermaid');
-      const cleanCode = code.replace(/\`\`\`mermaid/gi, '').replace(/\`\`\`/g, '').trim();
+      
+      const cleanCode = code
+        .replace(/\`\`\`mermaid/gi, '')
+        .replace(/\`\`\`/g, '')
+        .replace(/#quot;/g, '&quot;')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/\\u00A0/g, ' ')
+        .trim();
+        
       newPre.textContent = cleanCode; 
       newPre.id = 'live-mermaid-' + (++mermaidSeq);
       
