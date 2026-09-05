@@ -127,13 +127,13 @@ function ResetPasswordContent() {
       }
 
       localStorage.removeItem(`otp_request_${email}`);
-      
-      signIn("credentials", {
-        identifier: email,
-        password: password,
-        callbackUrl: "/dash"
-      });
-      return;
+  
+  signIn("credentials", {
+    identifier: email,
+    password: password,
+    callbackUrl: `${window.location.origin}/dash` 
+  });
+  return;
 
     } catch (err) {
       triggerError("An unexpected error occurred.");

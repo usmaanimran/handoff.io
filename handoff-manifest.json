@@ -1,0 +1,903 @@
+{
+  "meta": {
+    "scannedAt": "2026-09-05T07:57:09.889Z",
+    "ecosystems": [
+      "Node/Web"
+    ],
+    "directoryTree": "├── handoff-cli\n│   ├── bin\n│   │   ├── index.ts\n│   ├── handoff-manifest.json\n│   ├── package.json\n│   ├── src\n│   │   ├── core\n│   │   │   ├── ai.ts\n│   │   │   ├── auth.ts\n│   │   │   ├── cache.ts\n│   │   │   ├── git.ts\n│   │   │   ├── parser.ts\n│   │   │   ├── sanitizer.ts\n│   │   │   ├── verifier.ts\n│   │   ├── types\n│   │   │   ├── index.d.ts\n│   ├── tsconfig.json\n│   ├── tsup.config.ts\n├── handoff-web\n│   ├── AGENTS.md\n│   ├── app\n│   │   ├── api\n│   │   │   ├── auth\n│   │   │   ├── forgot-password\n│   │   │   ├── generate\n│   │   │   ├── handshake\n│   │   │   ├── keys\n│   │   │   ├── notifications\n│   │   │   ├── projects\n│   │   │   ├── register\n│   │   │   ├── resend\n│   │   │   ├── reset-password\n│   │   │   ├── verify\n│   │   ├── dash\n│   │   │   ├── page.tsx\n│   │   ├── editor\n│   │   │   ├── [slug]\n│   │   ├── favicon.ico\n│   │   ├── forgot-password\n│   │   │   ├── page.tsx\n│   │   ├── globals.css\n│   │   ├── layout.tsx\n│   │   ├── lib\n│   │   │   ├── html.ts\n│   │   ├── login\n│   │   │   ├── page.tsx\n│   │   ├── p\n│   │   │   ├── [slug]\n│   │   ├── page.tsx\n│   │   ├── Providers.tsx\n│   │   ├── register\n│   │   │   ├── page.tsx\n│   │   ├── reset-password\n│   │   │   ├── page.tsx\n│   │   ├── verify\n│   │   │   ├── page.tsx\n│   ├── CLAUDE.md\n│   ├── eslint.config.mjs\n│   ├── middleware.ts\n│   ├── next-env.d.ts\n│   ├── next.config.ts\n│   ├── package.json\n│   ├── postcss.config.mjs\n│   ├── public\n│   │   ├── file.svg\n│   │   ├── globe.svg\n│   │   ├── next.svg\n│   │   ├── vercel.svg\n│   │   ├── window.svg\n│   ├── README.md\n│   ├── tsconfig.json\n├── package.json\n",
+    "totalFilesScanned": 56
+  },
+  "git": {
+    "branch": "main",
+    "latestCommit": {
+      "hash": "66a15ffe92354ffa448841d48fe2540be4b76282",
+      "message": "login bugs",
+      "author_name": "usmaanimran",
+      "date": "2026-09-05T13:10:55+05:30"
+    },
+    "recentCommits": [
+      {
+        "hash": "66a15ff",
+        "message": "login bugs",
+        "date": "2026-09-05T13:10:55+05:30"
+      },
+      {
+        "hash": "e4156a0",
+        "message": "login",
+        "date": "2026-09-04T22:15:23+05:30"
+      },
+      {
+        "hash": "c332f1c",
+        "message": "Add proper .gitignore and clean up repository",
+        "date": "2026-09-04T21:54:44+05:30"
+      },
+      {
+        "hash": "f02c697",
+        "message": "Fix submodules and remove node_modules",
+        "date": "2026-09-04T02:49:55+05:30"
+      },
+      {
+        "hash": "1b9ecd2",
+        "message": "handoff.io v2.0",
+        "date": "2026-09-04T02:46:02+05:30"
+      }
+    ],
+    "diffSummary": {
+      "changedFiles": 64,
+      "insertions": 19690,
+      "deletions": 0
+    }
+  },
+  "architecture": [
+    {
+      "file": "package.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"dependencies\": {\n    \"tree-sitter-cpp\": \"^0.23.4\",\n    \"tree-sitter-java\": \"^0.23.5\"\n  }\n}\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "package.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/AGENTS.md",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "<!-- BEGIN:nextjs-agent-rules -->\n\n# This is NOT the Next.js you know\n\nThis version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.\n\nThis block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.\n\n<!-- END:nextjs-agent-rules -->\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "agents.md",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/CLAUDE.md",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "@AGENTS.md\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "claude.md",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/eslint.config.mjs",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "import { defineConfig, globalIgnores } from \"eslint/config\";\nimport nextVitals from \"eslint-config-next/core-web-vitals\";\nimport nextTs from \"eslint-config-next/typescript\";\n\nconst eslintConfig = defineConfig([\n  ...nextVitals,\n  ...nextTs,\n  // Override default ignores of eslint-config-next.\n  globalIgnores([\n    // Default ignores of eslint-config-next:\n    \".next/**\",\n    \"out/**\",\n    \"build/**\",\n    \"next-env.d.ts\",\n  ]),\n]);\n\nexport default eslintConfig;\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "eslint.config.mjs",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/middleware.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "middleware",
+          "startLine": 19
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/next-env.d.ts",
+      "language": "typescript",
+      "symbols": []
+    },
+    {
+      "file": "handoff-web/next.config.ts",
+      "language": "typescript",
+      "symbols": []
+    },
+    {
+      "file": "handoff-web/package.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"name\": \"handoff-web\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"scripts\": {\n    \"dev\": \"next dev\",\n    \"build\": \"next build\",\n    \"start\": \"next start\",\n    \"lint\": \"eslint\"\n  },\n  \"dependencies\": {\n    \"@supabase/ssr\": \"^0.12.4\",\n    \"@supabase/supabase-js\": \"^2.112.4\",\n    \"@upstash/ratelimit\": \"^2.0.8\",\n    \"@upstash/redis\": \"^1.38.2\",\n    \"bcrypt\": \"^6.0.0\",\n    \"bcryptjs\": \"^3.0.3\",\n    \"framer-motion\": \"^13.1.1\",\n    \"next\": \"16.3.2\",\n    \"next-auth\": \"^4.24.15\",\n    \"react\": \"19.2.8\",\n    \"react-dom\": \"19.2.8\"\n  },\n  \"devDependencies\": {\n    \"@tailwindcss/postcss\": \"^4\",\n    \"@types/bcrypt\": \"^6.0.0\",\n    \"@types/bcryptjs\": \"^2.4.6\",\n    \"@types/node\": \"^20\",\n    \"@types/react\": \"^19\",\n    \"@types/react-dom\": \"^19\",\n    \"eslint\": \"^9\",\n    \"eslint-config-next\": \"16.3.2\",\n    \"tailwindcss\": \"^4\",\n    \"typescript\": \"^5\"\n  }\n}\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "package.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/postcss.config.mjs",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "const config = {\n  plugins: {\n    \"@tailwindcss/postcss\": {},\n  },\n};\n\nexport default config;\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "postcss.config.mjs",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/README.md",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).\n\n## Getting Started\n\nFirst, run the development server:\n\n```bash\nnpm run dev\n# or\nyarn dev\n# or\npnpm dev\n# or\nbun dev\n```\n\nOpen [http://localhost:3000](http://localhost:3000) with your browser to see the result.\n\nYou can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.\n\nThis project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.\n\n## Learn More\n\nTo learn more about Next.js, take a look at the following resources:\n\n- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.\n- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.\n\nYou can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!\n\n## Deploy on Vercel\n\nThe easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.\n\nCheck out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "readme.md",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/tsconfig.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"compilerOptions\": {\n    \"target\": \"ES2017\",\n    \"lib\": [\"dom\", \"dom.iterable\", \"esnext\"],\n    \"allowJs\": true,\n    \"skipLibCheck\": true,\n    \"strict\": true,\n    \"noEmit\": true,\n    \"esModuleInterop\": true,\n    \"module\": \"esnext\",\n    \"moduleResolution\": \"bundler\",\n    \"resolveJsonModule\": true,\n    \"isolatedModules\": true,\n    \"jsx\": \"react-jsx\",\n    \"incremental\": true,\n    \"plugins\": [\n      {\n        \"name\": \"next\"\n      }\n    ],\n    \"paths\": {\n      \"@/*\": [\"./*\"]\n    }\n  },\n  \"include\": [\n    \"next-env.d.ts\",\n    \"**/*.ts\",\n    \"**/*.tsx\",\n    \".next/types/**/*.ts\",\n    \".next/dev/types/**/*.ts\",\n    \"**/*.mts\"\n  ],\n  \"exclude\": [\"node_modules\"]\n}\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "tsconfig.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/handoff-manifest.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"meta\": {\n    \"scannedAt\": \"2026-09-04T20:48:22.766Z\",\n    \"ecosystems\": [\n      \"Node/Web\"\n    ],\n    \"directoryTree\": \"├── bin\\n│   ├── index.ts\\n├── handoff-manifest.json\\n├── package.json\\n├── src\\n│   ├── core\\n│   │   ├── ai.ts\\n│   │   ├── auth.ts\\n│   │   ├── cache.ts\\n│   │   ├── git.ts\\n│   │   ├── parser.ts\\n│   │   ├── sanitizer.ts\\n│   │   ├── verifier.ts\\n│   ├── types\\n│   │   ├── index.d.ts\\n├── tsconfig.json\\n├── tsup.config.ts\\n\",\n    \"totalFilesScanned\": 13\n  },\n  \"git\": {\n    \"branch\": \"main\",\n    \"latestCommit\": {\n      \"hash\": \"e4156a03f4c88965f0dd6091535e0a2dfe8e1296\",\n      \"message\": \"login\",\n      \"author_name\": \"usmaanimran\",\n      \"date\": \"2026-09-04T22:15:23+05:30\"\n    },\n    \"recentCommits\": [\n      {\n        \"hash\": \"e4156a0\",\n        \"message\": \"login\",\n        \"date\": \"2026-09-04T22:15:23+05:30\"\n      },\n      {\n        \"hash\": \"c332f1c\",\n        \"message\": \"Add proper .gitignore and clean up repository\",\n        \"date\": \"2026-09-04T21:54:44+05:30\"\n      },\n      {\n        \"hash\": \"f02c697\",\n        \"message\": \"Fix submodules and remove node_modules\",\n        \"date\": \"2026-09-04T02:49:55+05:30\"\n      },\n      {\n        \"hash\": \"1b9ecd2\",\n        \"message\": \"handoff.io v2.0\",\n        \"date\": \"2026-09-04T02:46:02+05:30\"\n      }\n    ],\n    \"diffSummary\": {\n      \"changedFiles\": 67,\n      \"insertions\": 20978,\n      \"deletions\": 0\n    }\n  },\n  \"architecture\": [\n    {\n      \"file\": \"handoff-manifest.json\",\n      \"language\": \"unknown\",\n      \"isR",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "handoff-manifest.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/package.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"name\": \"handoff-io-cli\",\n  \"version\": \"1.0.11\",\n  \"type\": \"module\",\n  \"description\": \"Automated project delivery and client handoff engine\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"handoff\": \"dist/index.js\"\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"scripts\": {\n    \"start\": \"tsx bin/index.ts\",\n    \"build\": \"tsup\",\n    \"prepublishOnly\": \"npm run build\"\n  },\n  \"dependencies\": {\n    \"@clack/prompts\": \"^1.7.0\",\n    \"@google/generative-ai\": \"^0.24.1\",\n    \"boxen\": \"^8.0.1\",\n    \"chalk\": \"^6.0.0\",\n    \"commander\": \"^15.0.0\",\n    \"dotenv\": \"^17.4.2\",\n    \"fast-glob\": \"^3.3.3\",\n    \"gradient-string\": \"^3.0.0\",\n    \"ignore\": \"^7.0.6\",\n    \"ora\": \"^9.4.1\",\n    \"picocolors\": \"^1.1.1\",\n    \"simple-git\": \"^3.36.0\",\n    \"tree-sitter\": \"^0.25.1\",\n    \"tree-sitter-c-sharp\": \"^0.23.5\",\n    \"tree-sitter-cpp\": \"^0.23.4\",\n    \"tree-sitter-go\": \"^0.25.0\",\n    \"tree-sitter-java\": \"^0.23.5\",\n    \"tree-sitter-javascript\": \"^0.25.0\",\n    \"tree-sitter-php\": \"^0.24.2\",\n    \"tree-sitter-python\": \"^0.25.0\",\n    \"tree-sitter-ruby\": \"^0.23.1\",\n    \"tree-sitter-rust\": \"^0.24.0\",\n    \"tree-sitter-typescript\": \"^0.23.2\"\n  },\n  \"devDependencies\": {\n    \"@types/node\": \"^26.4.0\",\n    \"tsup\": \"^8.5.1\",\n    \"tsx\": \"^4.23.12\",\n    \"typescript\": \"^7.0.2\"\n  },\n  \"overrides\": {\n    \"tree-sitter\": \"$tree-sitter\"\n  }\n}\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "package.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/tsconfig.json",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "{\n  \"compilerOptions\": {\n    \"target\": \"ESNext\",\n    \"module\": \"NodeNext\",\n    \"moduleResolution\": \"NodeNext\",\n    \"allowImportingTsExtensions\": true,\n    \"noEmit\": true,\n    \"strict\": true,\n    \"esModuleInterop\": true,\n    \"skipLibCheck\": true\n  }\n}",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "tsconfig.json",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/tsup.config.ts",
+      "language": "typescript",
+      "symbols": []
+    },
+    {
+      "file": "handoff-web/app/globals.css",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "@import \"tailwindcss\";\n\n:root {\n  --background: #ffffff;\n  --foreground: #171717;\n}\n\n@theme inline {\n  --color-background: var(--background);\n  --color-foreground: var(--foreground);\n  --font-sans: var(--font-geist-sans);\n  --font-mono: var(--font-geist-mono);\n}\n\n@media (prefers-color-scheme: dark) {\n  :root {\n    --background: #0a0a0a;\n    --foreground: #ededed;\n  }\n}\n\nbody {\n  background: var(--background);\n  color: var(--foreground);\n  font-family: Arial, Helvetica, sans-serif;\n}\n",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "globals.css",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/layout.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "RootLayout",
+          "startLine": 22
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "Home",
+          "startLine": 3
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/Providers.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "Providers",
+          "startLine": 6
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/public/file.svg",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "<svg fill=\"none\" viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z\" clip-rule=\"evenodd\" fill=\"#666\" fill-rule=\"evenodd\"/></svg>",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "file.svg",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/public/globe.svg",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "<svg fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 16 16\"><g clip-path=\"url(#a)\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1\" fill=\"#666\"/></g><defs><clipPath id=\"a\"><path fill=\"#fff\" d=\"M0 0h16v16H0z\"/></clipPath></defs></svg>",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "globe.svg",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/public/next.svg",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 394 80\"><path fill=\"#000\" d=\"M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z\"/><path fill=\"#000\" d=\"M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z\"/></svg>",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "next.svg",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/public/vercel.svg",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "<svg fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1155 1000\"><path d=\"m577.3 0 577.4 1000H0z\" fill=\"#fff\"/></svg>",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "vercel.svg",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/public/window.svg",
+      "language": "unknown",
+      "isRaw": true,
+      "rawContent": "<svg fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5\" fill=\"#666\"/></svg>",
+      "symbols": [
+        {
+          "type": "infra",
+          "name": "window.svg",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/bin/index.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "renderBigText",
+          "startLine": 46
+        },
+        {
+          "type": "function",
+          "name": "printBigSign",
+          "startLine": 57
+        },
+        {
+          "type": "class",
+          "name": "InkMascot",
+          "startLine": 118
+        },
+        {
+          "type": "function",
+          "name": "start",
+          "startLine": 126
+        },
+        {
+          "type": "function",
+          "name": "update",
+          "startLine": 136
+        },
+        {
+          "type": "function",
+          "name": "render",
+          "startLine": 140
+        },
+        {
+          "type": "function",
+          "name": "pulse",
+          "startLine": 158
+        },
+        {
+          "type": "function",
+          "name": "stop",
+          "startLine": 166
+        },
+        {
+          "type": "function",
+          "name": "inkBurst",
+          "startLine": 177
+        },
+        {
+          "type": "function",
+          "name": "printBootLog",
+          "startLine": 188
+        },
+        {
+          "type": "function",
+          "name": "bootSequence",
+          "startLine": 202
+        },
+        {
+          "type": "function",
+          "name": "checkMonorepoContext",
+          "startLine": 239
+        },
+        {
+          "type": "function",
+          "name": "promptForKey",
+          "startLine": 268
+        },
+        {
+          "type": "function",
+          "name": "validate",
+          "startLine": 272
+        },
+        {
+          "type": "function",
+          "name": "promptForGeminiKey",
+          "startLine": 287
+        },
+        {
+          "type": "function",
+          "name": "validate",
+          "startLine": 291
+        },
+        {
+          "type": "function",
+          "name": "main",
+          "startLine": 306
+        },
+        {
+          "type": "function",
+          "name": "validate",
+          "startLine": 379
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/dash/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "DashboardPage",
+          "startLine": 9
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/forgot-password/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "ForgotPasswordPage",
+          "startLine": 7
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/lib/html.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "generateHtmlReport",
+          "startLine": 2
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/login/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "LoginPage",
+          "startLine": 7
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/register/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "RegisterPage",
+          "startLine": 8
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/reset-password/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "ResetPasswordContent",
+          "startLine": 8
+        },
+        {
+          "type": "function",
+          "name": "ResetPasswordPage",
+          "startLine": 415
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/verify/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "VerifyContent",
+          "startLine": 8
+        },
+        {
+          "type": "function",
+          "name": "VerifyPage",
+          "startLine": 374
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/src/types/index.d.ts",
+      "language": "typescript",
+      "symbols": []
+    },
+    {
+      "file": "handoff-cli/src/core/ai.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "sanitizeMermaidLabels",
+          "startLine": 88
+        },
+        {
+          "type": "function",
+          "name": "partitionIntoChunks",
+          "startLine": 100
+        },
+        {
+          "type": "function",
+          "name": "mapChunk",
+          "startLine": 122
+        },
+        {
+          "type": "function",
+          "name": "reduceSummaries",
+          "startLine": 184
+        },
+        {
+          "type": "function",
+          "name": "generateHandoffReport",
+          "startLine": 282
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/src/core/auth.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "getConfig",
+          "startLine": 12
+        },
+        {
+          "type": "function",
+          "name": "saveConfig",
+          "startLine": 23
+        },
+        {
+          "type": "function",
+          "name": "getSavedKey",
+          "startLine": 32
+        },
+        {
+          "type": "function",
+          "name": "saveKey",
+          "startLine": 36
+        },
+        {
+          "type": "function",
+          "name": "getGeminiKey",
+          "startLine": 41
+        },
+        {
+          "type": "function",
+          "name": "saveGeminiKey",
+          "startLine": 45
+        },
+        {
+          "type": "function",
+          "name": "clearKey",
+          "startLine": 50
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/src/core/cache.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "class",
+          "name": "CacheEngine",
+          "startLine": 5
+        },
+        {
+          "type": "function",
+          "name": "constructor",
+          "startLine": 9
+        },
+        {
+          "type": "function",
+          "name": "hashContent",
+          "startLine": 21
+        },
+        {
+          "type": "function",
+          "name": "get",
+          "startLine": 25
+        },
+        {
+          "type": "function",
+          "name": "set",
+          "startLine": 29
+        },
+        {
+          "type": "function",
+          "name": "save",
+          "startLine": 33
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/src/core/git.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "parseGitHistory",
+          "startLine": 24
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/src/core/parser.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "class",
+          "name": "ASTExtractor",
+          "startLine": 32
+        },
+        {
+          "type": "function",
+          "name": "constructor",
+          "startLine": 36
+        },
+        {
+          "type": "function",
+          "name": "detectEcosystem",
+          "startLine": 41
+        },
+        {
+          "type": "function",
+          "name": "generateDirectoryTree",
+          "startLine": 57
+        },
+        {
+          "type": "function",
+          "name": "setLanguage",
+          "startLine": 73
+        },
+        {
+          "type": "function",
+          "name": "parseFile",
+          "startLine": 117
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/src/core/sanitizer.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "class",
+          "name": "Sanitizer",
+          "startLine": 1
+        },
+        {
+          "type": "function",
+          "name": "constructor",
+          "startLine": 4
+        },
+        {
+          "type": "function",
+          "name": "calculateEntropy",
+          "startLine": 12
+        },
+        {
+          "type": "function",
+          "name": "redactSecrets",
+          "startLine": 25
+        },
+        {
+          "type": "function",
+          "name": "shouldIgnore",
+          "startLine": 63
+        }
+      ]
+    },
+    {
+      "file": "handoff-cli/src/core/verifier.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "verifyHandoffReport",
+          "startLine": 1
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/editor/[slug]/page.tsx",
+      "language": "typescriptreact",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "EditorPage",
+          "startLine": 17
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/forgot-password/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 10
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/generate/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 10
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/keys/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "GET",
+          "startLine": 13
+        },
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 32
+        },
+        {
+          "type": "function",
+          "name": "DELETE",
+          "startLine": 63
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/projects/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "GET",
+          "startLine": 13
+        },
+        {
+          "type": "function",
+          "name": "PATCH",
+          "startLine": 72
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/register/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 11
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/resend/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 10
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/handshake/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 10
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/notifications/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "GET",
+          "startLine": 11
+        },
+        {
+          "type": "function",
+          "name": "PATCH",
+          "startLine": 34
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/verify/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 10
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/p/[slug]/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "GET",
+          "startLine": 10
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/reset-password/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 10
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/projects/save/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "POST",
+          "startLine": 12
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/projects/update/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "PATCH",
+          "startLine": 11
+        }
+      ]
+    },
+    {
+      "file": "handoff-web/app/api/projects/[id]/route.ts",
+      "language": "typescript",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "GET",
+          "startLine": 12
+        }
+      ]
+    }
+  ]
+}

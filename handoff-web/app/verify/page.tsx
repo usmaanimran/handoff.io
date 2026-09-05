@@ -116,13 +116,13 @@ function VerifyContent() {
       localStorage.removeItem(`otp_request_${email}`);
       
       if (passwordParam) {
-        signIn("credentials", {
-          identifier: email,
-          password: passwordParam,
-          callbackUrl: "/dash"
-        });
-        return;
-      }
+    signIn("credentials", {
+      identifier: email,
+      password: passwordParam,
+      callbackUrl: `${window.location.origin}/dash` 
+    });
+    return;
+  }
       
       router.push("/login?verified=true");
 

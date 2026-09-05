@@ -119,9 +119,31 @@ function partitionIntoChunks(files: any[], maxFilesPerChunk = 12): Array<{ domai
   return chunks;
 }
 
+const FALLBACK_MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash'];
+
+async function generateWithFallback(genAI: any, promptText: string): Promise<string> {
+  let lastError;
+  for (const modelName of FALLBACK_MODELS) {
+    try {
+      const model = genAI.getGenerativeModel({
+        model: modelName,
+        generationConfig: { responseMimeType: 'application/json' }
+      });
+      const response = await model.generateContent(promptText);
+      return response.response.text();
+    } catch (error: any) {
+      lastError = error;
+      if (error.message && (error.message.includes('401') || error.message.includes('403'))) {
+        throw error;
+      }
+    }
+  }
+  throw lastError;
+}
+
 async function mapChunk(
   chunk: { domain: string; files: any[] },
-  model: any,
+  genAI: any,
   cacheEngine: CacheEngine
 ): Promise<IntermediateChunkSummary> {
   const payloadString = JSON.stringify(chunk.files);
@@ -175,8 +197,8 @@ async function mapChunk(
     2. NEXT.JS FRONTEND: Files named 'page.tsx', 'layout.tsx', or containing React components define the UI. Place them ONLY in 'identifiedUIComponents'.
     3. Backend logic, classes, utilities, and CLI commands go in 'identifiedCoreModules'.
   `;
-  const response = await model.generateContent(`${mapPrompt}\n\nCHUNK METADATA:\n${payloadString}`);
-  const result = JSON.parse(response.response.text()) as IntermediateChunkSummary;
+  const responseText = await generateWithFallback(genAI, `${mapPrompt}\n\nCHUNK METADATA:\n${payloadString}`);
+  const result = JSON.parse(responseText) as IntermediateChunkSummary;
   cacheEngine.set(chunkHash, result);
   return result;
 }
@@ -185,7 +207,7 @@ async function reduceSummaries(
   chunkSummaries: IntermediateChunkSummary[],
   manifest: any,
   infraFiles: any[],
-  model: any
+  genAI: any
 ): Promise<HandoffReport> {
   const reducePrompt = `
     You are a Principal Solutions Architect compiling the definitive Project Delivery & Handoff Report.
@@ -275,8 +297,8 @@ async function reduceSummaries(
     infrastructureFiles: infraFiles,
     moduleSummaries: chunkSummaries
   };
-  const response = await model.generateContent(`${reducePrompt}\n\nSYNTHESIS DATA:\n${JSON.stringify(payload, null, 2)}`);
-  return JSON.parse(response.response.text()) as HandoffReport;
+  const responseText = await generateWithFallback(genAI, `${reducePrompt}\n\nSYNTHESIS DATA:\n${JSON.stringify(payload, null, 2)}`);
+  return JSON.parse(responseText) as HandoffReport;
 }
 
 export async function generateHandoffReport(
@@ -292,13 +314,6 @@ export async function generateHandoffReport(
   }
 
   const genAI = new GoogleGenerativeAI(cleanKey);
-  const model = genAI.getGenerativeModel({
-    model: 'gemini-3.5-flash',
-    generationConfig: {
-      responseMimeType: 'application/json',
-    }
-  });
-
   const cacheEngine = new CacheEngine(projectPath);
   const files = manifest.architecture || [];
   const infraFiles = files.filter((f: any) => f.isRaw);
@@ -313,7 +328,7 @@ export async function generateHandoffReport(
     if (onProgress) {
       onProgress(`Mapping codebase modules (${Math.min(i + batchSize, chunks.length)}/${chunks.length})...`);
     }
-    const results = await Promise.all(currentBatch.map(chunk => mapChunk(chunk, model, cacheEngine)));
+    const results = await Promise.all(currentBatch.map(chunk => mapChunk(chunk, genAI, cacheEngine)));
     chunkSummaries.push(...results);
     
     cacheEngine.save(projectPath);
@@ -326,7 +341,7 @@ export async function generateHandoffReport(
   if (onProgress) {
     onProgress('Synthesizing enterprise handoff report...');
   }
-  const rawReport = await reduceSummaries(chunkSummaries, manifest, infraFiles, model);
+  const rawReport = await reduceSummaries(chunkSummaries, manifest, infraFiles, genAI);
   if (rawReport.developerRunbook?.mermaidDiagram) {
     rawReport.developerRunbook.mermaidDiagram = sanitizeMermaidLabels(rawReport.developerRunbook.mermaidDiagram);
   }
