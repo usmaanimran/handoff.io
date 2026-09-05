@@ -1752,5 +1752,214 @@
     "identifiedEnvVars": [],
     "databaseStructures": [],
     "keyInternalDependencies": []
+  },
+  "775128be0d90bdd7b2a265a2a9e5a03e7eb15c65f7e60bcf4bc02fd7f6466ed0": {
+    "domain": "handoff-web/app (part 1)",
+    "moduleRole": "Handles primary Next.js web application routing, authentication UI pages, global layout/providers, utility libraries, and API endpoints for auth workflows.",
+    "identifiedUIComponents": [
+      {
+        "name": "RootLayout",
+        "purpose": "Root layout wrapper component defining structure and HTML body layout for the Next.js app.",
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "name": "Home",
+        "purpose": "Main landing page view of the web application.",
+        "sourceFile": "handoff-web/app/page.tsx"
+      },
+      {
+        "name": "Providers",
+        "purpose": "Global context and state provider wrapper component.",
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "name": "DashboardPage",
+        "purpose": "Main user dashboard view.",
+        "sourceFile": "handoff-web/app/dash/page.tsx"
+      },
+      {
+        "name": "ForgotPasswordPage",
+        "purpose": "User password reset request form view.",
+        "sourceFile": "handoff-web/app/forgot-password/page.tsx"
+      },
+      {
+        "name": "LoginPage",
+        "purpose": "User authentication login form view.",
+        "sourceFile": "handoff-web/app/login/page.tsx"
+      },
+      {
+        "name": "RegisterPage",
+        "purpose": "User account registration form view.",
+        "sourceFile": "handoff-web/app/register/page.tsx"
+      },
+      {
+        "name": "VerifyPage",
+        "purpose": "Account and email verification page interface.",
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      },
+      {
+        "name": "ResetPasswordPage",
+        "purpose": "Password reset confirmation and new password entry form view.",
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      }
+    ],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Handles API requests to initiate the user password reset flow.",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/handshake",
+        "description": "Handles API handshake requests between client/CLI and server.",
+        "sourceFile": "handoff-web/app/api/handshake/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "html",
+        "purpose": "Generates formatted HTML reports.",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-web/app/lib/html.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": [
+      "handoff-web/app/Providers"
+    ]
+  },
+  "aacd67c9df2477d8dc36af6fd4b97d2ea50fed207c3772d2896d74937a37847e": {
+    "domain": "handoff-web/app (part 3)",
+    "moduleRole": "Handles backend API routes for project-specific operations such as retrieving details for a given project ID.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [
+      {
+        "method": "GET",
+        "path": "/api/projects/[id]",
+        "description": "Fetch details of a specific project by its ID",
+        "sourceFile": "handoff-web/app/api/projects/[id]/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "f031710d89e80e817b3ac9149a0ffa5b0511c6b35822f90b4dafa7ada28f5bbd": {
+    "domain": "handoff-web/app (part 2)",
+    "moduleRole": "Handles backend API routes for project generation, API keys management, notifications, user registration/verification/password reset, project persistence, and the editor page UI.",
+    "identifiedUIComponents": [
+      {
+        "name": "EditorPage",
+        "purpose": "Renders the project editor interface for a specific project slug",
+        "sourceFile": "handoff-web/app/editor/[slug]/page.tsx"
+      }
+    ],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/generate",
+        "description": "Handles generation requests for projects or code",
+        "sourceFile": "handoff-web/app/api/generate/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/keys",
+        "description": "Retrieves API keys for the authenticated user",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/keys",
+        "description": "Creates a new API key",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/keys",
+        "description": "Deletes an existing API key",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "description": "Fetches user notifications",
+        "sourceFile": "handoff-web/app/api/notifications/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/notifications",
+        "description": "Updates notification status (e.g., mark as read)",
+        "sourceFile": "handoff-web/app/api/notifications/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/projects",
+        "description": "Retrieves projects for the user",
+        "sourceFile": "handoff-web/app/api/projects/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/projects",
+        "description": "Updates project details",
+        "sourceFile": "handoff-web/app/api/projects/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends verification or confirmation emails",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Registers a new user account",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/reset-password",
+        "description": "Handles password reset requests and updates",
+        "sourceFile": "handoff-web/app/api/reset-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/verify",
+        "description": "Verifies user email or token",
+        "sourceFile": "handoff-web/app/api/verify/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/p/[slug]",
+        "description": "Retrieves public or published project data by slug",
+        "sourceFile": "handoff-web/app/p/[slug]/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/projects/save",
+        "description": "Saves new or updated project contents",
+        "sourceFile": "handoff-web/app/api/projects/save/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/projects/update",
+        "description": "Applies partial updates to a project",
+        "sourceFile": "handoff-web/app/api/projects/update/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [
+      "User",
+      "ApiKey",
+      "Notification",
+      "Project"
+    ],
+    "keyInternalDependencies": []
   }
 }

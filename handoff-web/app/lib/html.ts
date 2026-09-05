@@ -1,4 +1,3 @@
-// lib/html.ts
 export function generateHtmlReport(
   report: any, 
   slug: string = '', 
@@ -220,7 +219,6 @@ export function generateHtmlReport(
     }
     .premium-in { animation: premiumModalIn 0.5s var(--ease) forwards; }
 
-    /* The system return glitch for transitions */
     @keyframes sysReturnGlitch {
       0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 2px); filter: invert(0) sepia(1) hue-rotate(180deg); }
       20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); filter: invert(1); }
@@ -433,7 +431,6 @@ export function generateHtmlReport(
       </div>
 
       <div style="display: flex; align-items: center; gap: 12px;">
-        <!-- Invisible dummy switch just to satisfy the JS logic if loaded in the Next.js preview iframe -->
         <div class="segmented" id="tab-group" ${isPreview ? 'style="display:none;"' : ''}>
           <div class="thumb" id="thumb"></div>
           <button class="seg-btn active" id="btn-exec" onclick="switchView('exec')">Executive brief</button>
@@ -458,7 +455,6 @@ export function generateHtmlReport(
   </div>
 
   <main>
-    <!-- ================= EXECUTIVE ================= -->
     <section id="view-exec" class="view active">
       <div class="panel ${animClass}">
         <div class="eyebrow">Project Brief</div>
@@ -510,7 +506,6 @@ export function generateHtmlReport(
         </div>
       </div>
 
-      <!-- HANDSHAKE LOGIC -->
       ${(!isOwner && projectStatus === 'published') ? `
         <div class="handshake-card">
           <h3 style="font-size: 18px; font-weight: 600; color: var(--gold); margin: 0 0 8px;">Ready for Sign-Off</h3>
@@ -543,7 +538,6 @@ export function generateHtmlReport(
       ` : ''}
     </section>
 
-    <!-- ================= DEVELOPER ================= -->
     <section id="view-dev" class="view">
       <div class="panel ${animClass}">
         <div class="eyebrow">System architecture</div>
@@ -684,7 +678,7 @@ export function generateHtmlReport(
     let lastRenderedMermaidCode = null;
     let currentHandshakeAction = 'approve';
 
-    function drawMermaidFromData(attempts = 0) {
+    async function drawMermaidFromData(attempts = 0) {
       if (!window.mermaid) {
         if (attempts < 50) setTimeout(() => drawMermaidFromData(attempts + 1), 100);
         return;
@@ -710,30 +704,32 @@ export function generateHtmlReport(
       
       wrap.innerHTML = '<pre class="mermaid"></pre>';
       const newPre = wrap.querySelector('pre.mermaid');
-      newPre.textContent = code; 
+      const cleanCode = code.replace(/\`\`\`mermaid/gi, '').replace(/\`\`\`/g, '').trim();
+      newPre.textContent = cleanCode; 
       newPre.id = 'live-mermaid-' + (++mermaidSeq);
       
-      setTimeout(() => {
-        try {
-           window.mermaid.run({ querySelector: '#' + newPre.id });
-           lastRenderedMermaidCode = code;
-        } catch(e) {}
-      }, 50);
+      try {
+         await window.mermaid.run({ querySelector: '#' + newPre.id });
+         lastRenderedMermaidCode = code;
+      } catch(e) {}
     }
 
-    function prewarmMermaid(attempts = 0) {
+    async function prewarmMermaid(attempts = 0) {
       if (!window.mermaid) {
         if (attempts < 60) setTimeout(() => prewarmMermaid(attempts + 1), 100);
         return;
       }
       const devView = document.getElementById('view-dev');
-      if (devView.classList.contains('active')) { drawMermaidFromData(); return; }
+      if (devView.classList.contains('active')) { 
+        await drawMermaidFromData(); 
+        return; 
+      }
       
       const prevCss = devView.style.cssText;
       devView.style.cssText = 'display:block; visibility:hidden; position:absolute; top:0; left:0; pointer-events:none;';
-      drawMermaidFromData();
+      await drawMermaidFromData();
       
-      setTimeout(() => { devView.style.cssText = prevCss; }, 250);
+      devView.style.cssText = prevCss;
     }
 
     function positionThumb(btn){
