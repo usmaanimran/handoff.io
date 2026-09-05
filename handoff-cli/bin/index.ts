@@ -521,7 +521,7 @@ async function main() {
     mascot.start('Uploading finalized report to Handoff.io server...', 'think');
 
     try {
-      const res = await fetch("http://localhost:3000/api/generate", {
+      const res = await fetch("https://handoff-io.vercel.app/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
@@ -6,13 +7,11 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const router = useRouter();
-  
-  // Component state
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  // UI state
+
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [serverError, setServerError] = useState("");
   const [shakeTrigger, setShakeTrigger] = useState(false);
@@ -22,24 +21,18 @@ export default function RegisterPage() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loading) return;
+
     setServerError("");
     
     const newErrors: Record<string, boolean> = {};
 
-    // ==========================================
-    // 🎨 FRONTEND UX VALIDATION
-    // ==========================================
-    
-    // 1. Name check
     if (!name.trim()) newErrors.name = true;
     
-    // 2. Email regex check
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim() || !emailRegex.test(email)) {
       newErrors.email = true;
     }
     
-    // 3. Password complexity check
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
@@ -50,13 +43,11 @@ export default function RegisterPage() {
       newErrors.password = true;
     }
     
-    // Trigger shake animation and tell the user what is wrong
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setShakeTrigger(true);
       setTimeout(() => setShakeTrigger(false), 500);
 
-      // Provide contextual UI feedback
       if (newErrors.email && email.trim()) {
         setServerError("Please enter a valid email format.");
       } else if (newErrors.password && password) {
@@ -66,8 +57,6 @@ export default function RegisterPage() {
       }
       return;
     }
-    
-    // ==========================================
     
     setErrors({});
     setLoading(true);
@@ -85,8 +74,8 @@ export default function RegisterPage() {
         setShakeTrigger(true);
         setTimeout(() => setShakeTrigger(false), 500);
       } else {
-        // Send them to the OTP verification page and pass the email in the URL
-        router.push(`/verify?email=${encodeURIComponent(email)}`);
+        const data = await response.json();
+        router.push(`/verify?email=${encodeURIComponent(email)}&demo_otp=${data.demoOtp}&p=${encodeURIComponent(password)}`);
       }
     } catch (err) {
       setServerError("An unexpected connection error occurred.");
@@ -98,7 +87,6 @@ export default function RegisterPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-[#0a0a0a] px-4 py-6 text-white font-sans overflow-hidden">
       
-      {/* Reusing exact same animation keyframes to prevent layout shift between routes */}
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes pageEnter {
           from { opacity: 0; transform: scale(0.98) translateY(10px); }
@@ -123,23 +111,14 @@ export default function RegisterPage() {
           80% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 2px); }
           100% { clip-path: inset(30% 0 50% 0); transform: translate(0); }
         }
-        .animate-page-enter {
-          animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-slide-up {
-          animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-shake {
-          animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        .logo-glitch:hover {
-          animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-        }
+        .animate-page-enter { animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        .logo-glitch:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; }
       `}} />
 
       <div className="flex flex-1 flex-col items-center justify-center w-full max-w-sm mx-auto animate-page-enter">
         
-        {/* Brand Header */}
         <div className="mb-10 flex flex-col items-center opacity-0 animate-slide-up" style={{ animationDelay: "50ms" }}>
           <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-black shadow-[0_0_30px_rgba(255,255,255,0.1)] logo-glitch cursor-default transition-transform duration-300">
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

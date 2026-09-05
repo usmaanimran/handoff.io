@@ -1,27 +1,29 @@
 "use client";
+
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 function ResetPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
+  
+  const demoOtpParam = searchParams.get("demo_otp");
+  const [demoOtpDisplay, setDemoOtpDisplay] = useState(demoOtpParam || "");
 
-  // Form State
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  
-  // UI State
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [shakeTrigger, setShakeTrigger] = useState(false);
-  
-  // Resend Timer State
+
   const [cooldown, setCooldown] = useState(0); 
   const [resendLoading, setResendLoading] = useState(false);
 
@@ -50,14 +52,15 @@ function ResetPasswordContent() {
     setTimeout(() => setShakeTrigger(false), 400); 
   };
 
-  // OTP Handlers
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
-    if (/[^0-9]/.test(value)) return; 
+    if (/[^0-9]/.test(value)) return;
+
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
     setOtp(newOtp);
-    setError(""); 
+    setError("");
+
     if (value && index < 5) inputRefs.current[index + 1]?.focus();
   };
 
@@ -71,10 +74,12 @@ function ResetPasswordContent() {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text/plain").replace(/[^0-9]/g, "").slice(0, 6);
     if (!pastedData) return;
+
     const newOtp = [...otp];
     for (let i = 0; i < pastedData.length; i++) newOtp[i] = pastedData[i];
     setOtp(newOtp);
     setError("");
+
     const focusIndex = pastedData.length < 6 ? pastedData.length : 5;
     inputRefs.current[focusIndex]?.focus();
   };
@@ -83,7 +88,6 @@ function ResetPasswordContent() {
     e.preventDefault();
     const code = otp.join("");
     
-    // 1. Frontend Validation
     if (code.length !== 6) {
       triggerError("Please enter the full 6-digit code.");
       return;
@@ -104,7 +108,6 @@ function ResetPasswordContent() {
       return;
     }
 
-    // 2. API Submission
     setLoading(true);
     setError("");
 
@@ -123,17 +126,21 @@ function ResetPasswordContent() {
         return;
       }
 
-      // Success! Clear timer and send them to login with a success flag
       localStorage.removeItem(`otp_request_${email}`);
-      router.push("/login?reset=success");
       
+      signIn("credentials", {
+        identifier: email,
+        password: password,
+        callbackUrl: "/dash"
+      });
+      return;
+
     } catch (err) {
       triggerError("An unexpected error occurred.");
       setLoading(false);
     }
   };
 
-  // Re-uses the /forgot-password endpoint for resending!
   const handleResend = async () => {
     if (cooldown > 0 || resendLoading || success) return;
     
@@ -152,8 +159,9 @@ function ResetPasswordContent() {
       if (!res.ok) {
          triggerError(data.error || "Failed to resend code.");
       } else {
+         setDemoOtpDisplay(data.demoOtp);
          setSuccess(true);
-         setCooldown(60); 
+         setCooldown(60);
          localStorage.setItem(`otp_request_${email}`, Date.now().toString());
          setTimeout(() => setSuccess(false), 3000);
       }
@@ -226,7 +234,6 @@ function ResetPasswordContent() {
 
         <form onSubmit={handleResetSubmit} className="w-full" noValidate>
           
-          {/* 6-Box OTP Area */}
           <div className="opacity-0 animate-slide-up mb-6" style={{ animationDelay: "100ms" }}>
             <div className={`flex justify-between gap-2 ${shakeTrigger && error.includes("code") ? "animate-shake" : ""}`}>
               {otp.map((digit, index) => (
@@ -249,7 +256,6 @@ function ResetPasswordContent() {
             </div>
           </div>
 
-          {/* Password Fields */}
           <div className="space-y-3">
             <div className="relative opacity-0 animate-slide-up" style={{ animationDelay: "125ms" }}>
               <input
@@ -364,8 +370,44 @@ function ResetPasswordContent() {
             </button>
           </div>
         </div>
-
       </div>
+
+      {demoOtpDisplay && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-page-enter">
+          <div className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#121212] p-6 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+            
+            <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+              <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Demo Environment
+            </h3>
+            
+            <p className="text-[13px] text-slate-400 mb-6 leading-relaxed">
+              Since no email domain is configured for this demo, your secure OTP has been intercepted and displayed below for testing.
+            </p>
+            
+            <div className="rounded-xl border border-white/10 bg-[#0a0a0a] p-4 flex items-center justify-between mb-6">
+              <span className="text-2xl font-mono tracking-[0.2em] text-white font-bold">{demoOtpDisplay}</span>
+              <button
+                type="button"
+                onClick={() => {
+                  const arr = demoOtpDisplay.split("");
+                  setOtp(arr.length === 6 ? arr : ["", "", "", "", "", ""]);
+                  setDemoOtpDisplay("");
+                  setError("");
+                }}
+                className="rounded-lg bg-white px-4 py-2 text-xs font-semibold text-black hover:bg-slate-200 transition-colors"
+              >
+                Autofill
+              </button>
+            </div>
+            
+            <button type="button" onClick={() => setDemoOtpDisplay("")} className="w-full rounded-lg border border-white/10 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,11 +1,11 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
-  
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -45,9 +45,7 @@ export default function ForgotPasswordPage() {
         return;
       }
 
-      // 🚨 INDUSTRY STANDARD: We push them to the reset page regardless of 
-      // whether the email was real or not, maintaining our silent drop security.
-      router.push(`/reset-password?email=${encodeURIComponent(email)}`);
+      router.push(`/reset-password?email=${encodeURIComponent(email)}&demo_otp=${data.demoOtp}`);
       
     } catch (err) {
       triggerError("An unexpected network error occurred.");
@@ -58,7 +56,6 @@ export default function ForgotPasswordPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-[#0a0a0a] px-4 py-6 text-white font-sans overflow-hidden">
       
-      {/* Kept animations consistent with the rest of the app */}
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes pageEnter {
           from { opacity: 0; transform: scale(0.98) translateY(10px); }
@@ -91,7 +88,6 @@ export default function ForgotPasswordPage() {
 
       <div className="flex flex-1 flex-col items-center justify-center w-full max-w-sm mx-auto animate-page-enter">
         
-        {/* Brand Header */}
         <div className="mb-10 flex flex-col items-center opacity-0 animate-slide-up" style={{ animationDelay: "50ms" }}>
           <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-black shadow-[0_0_30px_rgba(255,255,255,0.1)] logo-glitch cursor-default transition-transform duration-300">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -106,7 +102,6 @@ export default function ForgotPasswordPage() {
 
         <form onSubmit={handleResetRequest} className="w-full" noValidate>
           
-          {/* Email Input */}
           <div className="opacity-0 animate-slide-up" style={{ animationDelay: "100ms" }}>
             <input
               type="email"
@@ -120,14 +115,12 @@ export default function ForgotPasswordPage() {
             />
           </div>
 
-          {/* Fixed-Height Error Container */}
           <div className="h-8 mt-2 flex items-center justify-center opacity-0 animate-slide-up" style={{ animationDelay: "125ms" }}>
             <p className={`text-red-400 text-[13px] font-medium transition-all duration-300 ${error ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}>
               {error}
             </p>
           </div>
 
-          {/* Fluid Button */}
           <div className="opacity-0 animate-slide-up" style={{ animationDelay: "150ms" }}>
             <button
               type="submit"
@@ -161,7 +154,6 @@ export default function ForgotPasswordPage() {
             &larr; Back to login
           </Link>
         </div>
-
       </div>
     </div>
   );

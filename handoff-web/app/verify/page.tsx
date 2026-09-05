@@ -1,27 +1,30 @@
 "use client";
+
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 function VerifyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
+  
+  const demoOtpParam = searchParams.get("demo_otp");
+  const passwordParam = searchParams.get("p") || "";
+  
+  const [demoOtpDisplay, setDemoOtpDisplay] = useState(demoOtpParam || "");
 
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false); // Changed to boolean for inline state
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [shakeTrigger, setShakeTrigger] = useState(false);
-  
+
   const [cooldown, setCooldown] = useState(0); 
   const [resendLoading, setResendLoading] = useState(false);
 
-  // ==========================================
-  // ⏱️ PERSISTENT TIMER LOGIC
-  // ==========================================
   useEffect(() => {
     const lastRequest = localStorage.getItem(`otp_request_${email}`);
     if (lastRequest) {
@@ -49,12 +52,12 @@ function VerifyContent() {
 
   const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
-    if (/[^0-9]/.test(value)) return; 
+    if (/[^0-9]/.test(value)) return;
 
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
     setOtp(newOtp);
-    setError(""); 
+    setError("");
 
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
@@ -111,7 +114,18 @@ function VerifyContent() {
       }
 
       localStorage.removeItem(`otp_request_${email}`);
+      
+      if (passwordParam) {
+        signIn("credentials", {
+          identifier: email,
+          password: passwordParam,
+          callbackUrl: "/dash"
+        });
+        return;
+      }
+      
       router.push("/login?verified=true");
+
     } catch (err) {
       triggerError("An unexpected error occurred.");
       setLoading(false);
@@ -136,11 +150,11 @@ function VerifyContent() {
       if (!res.ok) {
          triggerError(data.error || "Failed to resend code.");
       } else {
+         setDemoOtpDisplay(data.demoOtp);
          setSuccess(true);
-         setCooldown(60); 
+         setCooldown(60);
          localStorage.setItem(`otp_request_${email}`, Date.now().toString());
          
-         // Show the success checkmark for 3 seconds, then reveal the active timer
          setTimeout(() => setSuccess(false), 3000);
       }
     } catch (err) {
@@ -193,6 +207,7 @@ function VerifyContent() {
           from { opacity: 0; }
           to { opacity: 1; }
         }
+
         .animate-page-enter { animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .animate-shake { animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
@@ -200,8 +215,6 @@ function VerifyContent() {
         .animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .logo-glitch:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; }
       `}} />
-
-      {/* The big green toast is permanently deleted. */}
 
       <div className="flex flex-1 flex-col items-center justify-center w-full max-w-sm mx-auto animate-page-enter">
         
@@ -273,7 +286,6 @@ function VerifyContent() {
           </div>
         </form>
 
-        {/* Sleek Inline Resend Logic */}
         <div className="mt-8 flex w-full flex-col items-center gap-3 opacity-0 animate-slide-up" style={{ animationDelay: "200ms" }}>
           <div className="flex w-full items-center gap-3">
             <div className="h-[1px] flex-1 bg-[#262626]"></div>
@@ -281,7 +293,6 @@ function VerifyContent() {
             <div className="h-[1px] flex-1 bg-[#262626]"></div>
           </div>
           
-          {/* This wrapper locks the height so swapping text doesn't cause layout shift */}
           <div className="mt-2 flex h-6 items-center justify-center overflow-hidden">
             <button
               type="button"
@@ -291,8 +302,8 @@ function VerifyContent() {
                 success
                   ? "text-white"
                   : cooldown > 0 
-                  ? "text-slate-600 cursor-not-allowed" 
-                  : "text-slate-400 hover:text-white active:scale-[0.98]"
+                   ? "text-slate-600 cursor-not-allowed" 
+                   : "text-slate-400 hover:text-white active:scale-[0.98]"
               }`}
             >
               {resendLoading ? (
@@ -318,8 +329,44 @@ function VerifyContent() {
             </button>
           </div>
         </div>
-
       </div>
+
+      {demoOtpDisplay && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-page-enter">
+          <div className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#121212] p-6 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+            
+            <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+              <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Demo Environment
+            </h3>
+            
+            <p className="text-[13px] text-slate-400 mb-6 leading-relaxed">
+              Since no email domain is configured for this demo, your secure OTP has been intercepted and displayed below for testing.
+            </p>
+            
+            <div className="rounded-xl border border-white/10 bg-[#0a0a0a] p-4 flex items-center justify-between mb-6">
+              <span className="text-2xl font-mono tracking-[0.2em] text-white font-bold">{demoOtpDisplay}</span>
+              <button
+                type="button"
+                onClick={() => {
+                  const arr = demoOtpDisplay.split("");
+                  setOtp(arr.length === 6 ? arr : ["", "", "", "", "", ""]);
+                  setDemoOtpDisplay("");
+                  setError("");
+                }}
+                className="rounded-lg bg-white px-4 py-2 text-xs font-semibold text-black hover:bg-slate-200 transition-colors"
+              >
+                Autofill
+              </button>
+            </div>
+            
+            <button type="button" onClick={() => setDemoOtpDisplay("")} className="w-full rounded-lg border border-white/10 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

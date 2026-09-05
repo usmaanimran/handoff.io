@@ -85,7 +85,6 @@ interface IntermediateChunkSummary {
   keyInternalDependencies: string[];
 }
 
-// Post-process sanitizer as a safety net against LLM Mermaid syntax drift
 function sanitizeMermaidLabels(mermaidBlock: string): string {
   const nodePattern = /(\w+)(\[|\(\[|\[\(|\{\{|\(|\{)([^"\]\)\}][^\]\)\}]*)(\]|\)\]|\)\]|\}\}|\)|\})/g;
   return mermaidBlock.replace(nodePattern, (match, id, openBracket, label, closeBracket) => {
@@ -267,9 +266,9 @@ async function reduceSummaries(
     3. Include frontend architectures (pages, components, UI state) in 'uiComponents' and represent the User -> UI -> API flow in the 'mermaidDiagram'.
     4. Strongly factor the Directory Topology and Ecosystems into your architecture overview.
     5. MERMAID SYNTAX   NODE LABELS:
-       - ANY node text containing a slash (/), dot (.), colon (:), parenthesis, or hyphen-space combo MUST be wrapped in double quotes inside the brackets.
-       - Never emit a raw path or filename as a label without quotes. Example: CLI["bin/index.ts - CLIRunner"]
-       - If a label needs a literal double quote inside it, use #quot; instead.
+        - ANY node text containing a slash (/), dot (.), colon (:), parenthesis, or hyphen-space combo MUST be wrapped in double quotes inside the brackets.
+        - Never emit a raw path or filename as a label without quotes. Example: CLI["bin/index.ts - CLIRunner"]
+        - If a label needs a literal double quote inside it, use #quot; instead.
   `;
   const payload = {
     gitHistory: manifest.git,
@@ -283,17 +282,18 @@ async function reduceSummaries(
 export async function generateHandoffReport(
   manifest: any,
   projectPath: string,
-  geminiApiKey: string, // <-- NOW ACCEPTING KEY AS PARAMETER
+  geminiApiKey: string, 
   onProgress?: (status: string) => void
 ): Promise<HandoffReport> {
+  const cleanKey = geminiApiKey ? geminiApiKey.replace(/['"\s]/g, '').trim() : '';
 
-  if (!geminiApiKey) {
-    throw new Error('Google Gemini API Key is required to run local synthesis.');
+  if (!cleanKey || cleanKey.startsWith('handoff_live_')) {
+    throw new Error('\n\n❌ INVALID GEMINI KEY ❌\nYou pasted your Handoff dashboard key instead of a Google Gemini API Key.\nRun `handoff auth` to reset and enter your actual Gemini key.\n');
   }
 
-  const genAI = new GoogleGenerativeAI(geminiApiKey);
+  const genAI = new GoogleGenerativeAI(cleanKey);
   const model = genAI.getGenerativeModel({
-    model: 'gemini-3.6-flash',
+    model: 'gemini-3.5-flash',
     generationConfig: {
       responseMimeType: 'application/json',
     }

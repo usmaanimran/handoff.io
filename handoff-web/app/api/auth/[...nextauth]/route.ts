@@ -25,34 +25,28 @@ export const authOptions: NextAuthOptions = {
           .eq("email", credentials.identifier)
           .single();
 
-        // Standard: Always return generic error to prevent email harvesting
         if (!user) throw new Error("Invalid email or password.");
 
-        // 1. Check if the account is currently in a 15-minute penalty box
         const now = new Date();
         if (user.lockout_until && new Date(user.lockout_until) > now) {
           throw new Error("Account temporarily locked due to failed attempts.");
         }
 
-        // 2. Cryptographically verify the password
         const passwordMatch = await bcrypt.compare(credentials.password, user.password);
 
         if (!passwordMatch) {
           const newAttempts = (user.login_attempts || 0) + 1;
           const updateData: any = { login_attempts: newAttempts };
 
-          // 3. Issue a strike. 5 strikes = 15-minute lockout.
           if (newAttempts >= 5) {
             updateData.lockout_until = new Date(now.getTime() + 15 * 60 * 1000).toISOString();
           }
-
           await supabase.from("users").update(updateData).eq("id", user.id);
           throw new Error("Invalid email or password.");
         }
 
         if (!user.is_verified) throw new Error("unverified");
 
-        // 4. Success! Wipe their penalty strikes clean.
         await supabase
           .from("users")
           .update({ login_attempts: 0, lockout_until: null })
@@ -62,7 +56,10 @@ export const authOptions: NextAuthOptions = {
       }
     })
   ],
-  session: { strategy: "jwt" },
+  session: { 
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
+  },
   pages: { signIn: "/login" }
 };
 
