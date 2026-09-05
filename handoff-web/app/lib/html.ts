@@ -1,4 +1,3 @@
-// lib/html.ts
 export function generateHtmlReport(
   report: any, 
   slug: string = '', 
@@ -679,9 +678,9 @@ export function generateHtmlReport(
     let lastRenderedMermaidCode = null;
     let currentHandshakeAction = 'approve';
 
-    async function drawMermaidFromData(attempts = 0) {
+    async function drawMermaidFromData(attempts = 0, forceRender = false) {
       if (!window.mermaid) {
-        if (attempts < 50) setTimeout(() => drawMermaidFromData(attempts + 1), 100);
+        if (attempts < 50) setTimeout(() => drawMermaidFromData(attempts + 1, forceRender), 100);
         return;
       }
       
@@ -695,7 +694,9 @@ export function generateHtmlReport(
          wrap.setAttribute('data-mermaid-code', code);
       }
       
-      if (code === lastRenderedMermaidCode && wrap.querySelector('svg')) return;
+      if (!forceRender && code === lastRenderedMermaidCode && wrap.querySelector('svg')) {
+         if (!wrap.innerHTML.includes('Syntax error')) return;
+      }
       
       if (!code || !code.trim()) {
          wrap.innerHTML = '<pre class="mermaid"></pre>';
@@ -709,9 +710,13 @@ export function generateHtmlReport(
       const cleanCode = code
         .replace(/\`\`\`mermaid/gi, '')
         .replace(/\`\`\`/g, '')
-        .replace(/#quot;/g, '&quot;')
+        .replace(/#quot;/g, "'")
+        .replace(/&quot;/g, '"')
+        .replace(/&gt;/g, '>')
+        .replace(/&lt;/g, '<')
+        .replace(/&amp;/g, '&')
+        .replace(new RegExp(String.fromCharCode(160), 'g'), ' ')
         .replace(/&nbsp;/g, ' ')
-        .replace(/\\u00A0/g, ' ')
         .trim();
         
       newPre.textContent = cleanCode; 
@@ -720,7 +725,9 @@ export function generateHtmlReport(
       try {
          await window.mermaid.run({ querySelector: '#' + newPre.id });
          lastRenderedMermaidCode = code;
-      } catch(e) {}
+      } catch(e) {
+         lastRenderedMermaidCode = null; 
+      }
     }
 
     async function prewarmMermaid(attempts = 0) {
@@ -735,7 +742,7 @@ export function generateHtmlReport(
       }
       
       const prevCss = devView.style.cssText;
-      devView.style.cssText = 'display:block; visibility:hidden; position:absolute; top:0; left:0; pointer-events:none;';
+      devView.style.cssText = 'display:block; visibility:hidden; position:absolute; top:0; left:0; width:100%; pointer-events:none; z-index:-10;';
       await drawMermaidFromData();
       
       devView.style.cssText = prevCss;
@@ -795,7 +802,7 @@ export function generateHtmlReport(
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
-        if (tab === 'dev') drawMermaidFromData();
+        if (tab === 'dev') drawMermaidFromData(0, true);
         
         setTimeout(() => {
           target.classList.remove('fade-in');
