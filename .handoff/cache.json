@@ -1466,5 +1466,291 @@
       "../lib/html",
       "../Providers"
     ]
+  },
+  "4999fbd2725166e8a7399f1c1f81034a1b3c1fe6cf0e52b15ca08b13c711c540": {
+    "domain": "handoff-web/app (part 1)",
+    "moduleRole": "Handles frontend app layouts, core authentication pages (login, registration, password reset/recovery, verification), dashboard entry, HTML report utilities, and initial API routes for password recovery and handshakes.",
+    "identifiedUIComponents": [
+      {
+        "name": "RootLayout",
+        "purpose": "Root application layout wrapper defining global styles, HTML structure, and core providers",
+        "sourceFile": "handoff-web/app/layout.tsx"
+      },
+      {
+        "name": "Home",
+        "purpose": "Landing page / home page view",
+        "sourceFile": "handoff-web/app/page.tsx"
+      },
+      {
+        "name": "Providers",
+        "purpose": "React context providers wrapper for client-side state and theming",
+        "sourceFile": "handoff-web/app/Providers.tsx"
+      },
+      {
+        "name": "DashboardPage",
+        "purpose": "Main dashboard landing page view",
+        "sourceFile": "handoff-web/app/dash/page.tsx"
+      },
+      {
+        "name": "ForgotPasswordPage",
+        "purpose": "User password reset request form view",
+        "sourceFile": "handoff-web/app/forgot-password/page.tsx"
+      },
+      {
+        "name": "LoginPage",
+        "purpose": "User authentication and login interface",
+        "sourceFile": "handoff-web/app/login/page.tsx"
+      },
+      {
+        "name": "RegisterPage",
+        "purpose": "User registration and account creation interface",
+        "sourceFile": "handoff-web/app/register/page.tsx"
+      },
+      {
+        "name": "ResetPasswordPage",
+        "purpose": "Password reset token confirmation and new password entry interface",
+        "sourceFile": "handoff-web/app/reset-password/page.tsx"
+      },
+      {
+        "name": "VerifyPage",
+        "purpose": "Account email/token verification interface",
+        "sourceFile": "handoff-web/app/verify/page.tsx"
+      }
+    ],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/forgot-password",
+        "description": "Handles password reset requests and sends recovery emails or tokens",
+        "sourceFile": "handoff-web/app/api/forgot-password/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/handshake",
+        "description": "Performs client-server handshake/synchronization",
+        "sourceFile": "handoff-web/app/api/handshake/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "html",
+        "purpose": "Generates HTML report templates and documents from handoff data",
+        "exportedSymbols": [
+          "generateHtmlReport"
+        ],
+        "sourceFile": "handoff-web/app/lib/html.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": [
+      "handoff-web/app/Providers"
+    ]
+  },
+  "728588c007b715450e503b0af370e5ddb4b84d39b4b09d0fb68ae324f0863494": {
+    "domain": "handoff-web/app (part 2)",
+    "moduleRole": "Handles project editing frontend views along with various API endpoints for code generation, API key management, notifications, user registration, authentication verification/password reset, project management, and public project access.",
+    "identifiedUIComponents": [
+      {
+        "name": "EditorPage",
+        "purpose": "Renders the project editor page based on the project slug parameter",
+        "sourceFile": "handoff-web/app/editor/[slug]/page.tsx"
+      }
+    ],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/generate",
+        "description": "Handles generation requests (e.g., AI/code generation)",
+        "sourceFile": "handoff-web/app/api/generate/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/keys",
+        "description": "Retrieves API keys for the user or workspace",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/keys",
+        "description": "Creates a new API key",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/keys",
+        "description": "Revokes or deletes an API key",
+        "sourceFile": "handoff-web/app/api/keys/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/notifications",
+        "description": "Fetches notifications for the authenticated user",
+        "sourceFile": "handoff-web/app/api/notifications/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/notifications",
+        "description": "Updates notification status (e.g., marks as read)",
+        "sourceFile": "handoff-web/app/api/notifications/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/projects",
+        "description": "Fetches a list of projects",
+        "sourceFile": "handoff-web/app/api/projects/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/projects",
+        "description": "Updates project details in bulk or general settings",
+        "sourceFile": "handoff-web/app/api/projects/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/register",
+        "description": "Registers a new user account",
+        "sourceFile": "handoff-web/app/api/register/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/resend",
+        "description": "Resends verification or confirmation emails",
+        "sourceFile": "handoff-web/app/api/resend/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/reset-password",
+        "description": "Handles password reset requests",
+        "sourceFile": "handoff-web/app/api/reset-password/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/p/[slug]",
+        "description": "Publicly retrieves or serves a project by slug",
+        "sourceFile": "handoff-web/app/p/[slug]/route.ts"
+      },
+      {
+        "method": "POST",
+        "path": "/api/projects/save",
+        "description": "Saves current project state or configuration",
+        "sourceFile": "handoff-web/app/api/projects/save/route.ts"
+      },
+      {
+        "method": "PATCH",
+        "path": "/api/projects/update",
+        "description": "Updates specific project metadata or contents",
+        "sourceFile": "handoff-web/app/api/projects/update/route.ts"
+      },
+      {
+        "method": "GET",
+        "path": "/api/projects/[id]",
+        "description": "Retrieves project details by unique identifier",
+        "sourceFile": "handoff-web/app/api/projects/[id]/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
+  },
+  "62297dcb0c3a1ecece570aa72ffbb488f44f858a27abfa555dd4d8c4ec13b512": {
+    "domain": "handoff-cli/src (part 1)",
+    "moduleRole": "Core backend logic and utilities for handoff-cli, including AST parsing, AI prompt orchestration (map-reduce), secret sanitization, Git history parsing, cache management, authentication storage, and report verification.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [],
+    "identifiedCoreModules": [
+      {
+        "moduleName": "ai",
+        "purpose": "Manages AI-driven handoff report generation via chunk partitioning, map-reduce summarization, fallback handling, and Mermaid diagram sanitization.",
+        "exportedSymbols": [
+          "sanitizeMermaidLabels",
+          "partitionIntoChunks",
+          "generateWithFallback",
+          "mapChunk",
+          "reduceSummaries",
+          "generateHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/ai.ts"
+      },
+      {
+        "moduleName": "auth",
+        "purpose": "Handles persistent CLI configuration and API key storage/retrieval (e.g., Gemini API keys).",
+        "exportedSymbols": [
+          "getConfig",
+          "saveConfig",
+          "getSavedKey",
+          "saveKey",
+          "getGeminiKey",
+          "saveGeminiKey",
+          "clearKey"
+        ],
+        "sourceFile": "handoff-cli/src/core/auth.ts"
+      },
+      {
+        "moduleName": "CacheEngine",
+        "purpose": "Provides content hashing and persistent disk caching for parsing and generation operations.",
+        "exportedSymbols": [
+          "CacheEngine"
+        ],
+        "sourceFile": "handoff-cli/src/core/cache.ts"
+      },
+      {
+        "moduleName": "git",
+        "purpose": "Parses local repository Git history to extract commit logs and context for handoff documentation.",
+        "exportedSymbols": [
+          "parseGitHistory"
+        ],
+        "sourceFile": "handoff-cli/src/core/git.ts"
+      },
+      {
+        "moduleName": "ASTExtractor",
+        "purpose": "Extracts AST structures, detects project ecosystems, sets language parsers, and generates project directory trees.",
+        "exportedSymbols": [
+          "ASTExtractor"
+        ],
+        "sourceFile": "handoff-cli/src/core/parser.ts"
+      },
+      {
+        "moduleName": "Sanitizer",
+        "purpose": "Calculates entropy to detect and redact secrets, credentials, and sensitive file contents.",
+        "exportedSymbols": [
+          "Sanitizer"
+        ],
+        "sourceFile": "handoff-cli/src/core/sanitizer.ts"
+      },
+      {
+        "moduleName": "verifier",
+        "purpose": "Verifies and validates generated handoff reports against extracted codebase metadata.",
+        "exportedSymbols": [
+          "verifyHandoffReport"
+        ],
+        "sourceFile": "handoff-cli/src/core/verifier.ts"
+      }
+    ],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": [
+      "handoff-cli/src/types/index.d.ts",
+      "handoff-cli/src/core/sanitizer.ts",
+      "handoff-cli/src/core/cache.ts"
+    ]
+  },
+  "922b0c15e607a279f1bf80787a4325ce1255cc7ec786ec6cc978e6a2137876b4": {
+    "domain": "handoff-web/app (part 3)",
+    "moduleRole": "Handles verification API endpoints for the web application.",
+    "identifiedUIComponents": [],
+    "identifiedHttpRoutes": [
+      {
+        "method": "POST",
+        "path": "/api/verify",
+        "description": "Handles verification requests (e.g., token, code, or user verification).",
+        "sourceFile": "handoff-web/app/api/verify/route.ts"
+      }
+    ],
+    "identifiedCoreModules": [],
+    "identifiedEnvVars": [],
+    "databaseStructures": [],
+    "keyInternalDependencies": []
   }
 }
